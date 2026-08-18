@@ -297,7 +297,7 @@ function Index() {
               viewport={{ once: true }}
               className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
             >
-              Saya adalah mahasiswa Sistem Informasi di Universitas Indonesia dengan minat mendalam pada titik temu antara teknologi, desain, dan bisnis. Fokus utama saya adalah menerjemahkan kebutuhan pengguna menjadi solusi digital yang efisien, intuitif, dan berkualitas tinggi—mencakup seluruh siklus pengembangan mulai dari riset awal dan pembuatan prototipe, hingga tahap peluncuran akhir yang memberikan dampak nyata bagi pengguna.
+              Saya adalah mahasiswa Sistem Informasi di Universitas Indonesia dengan minat mendalam pada titik temu antara teknologi, desain, dan bisnis. Fokus utama saya adalah menerjemahkan kebutuhan pengguna menjadi solusi digital yang efisien, intuitif, dan berkualitas tinggi. Pendekatan saya mencakup seluruh siklus pengembangan mulai dari riset awal dan pembuatan prototipe, hingga tahap peluncuran akhir yang memberikan dampak nyata bagi pengguna.
             </motion.p>
             <motion.div
               custom={4}
