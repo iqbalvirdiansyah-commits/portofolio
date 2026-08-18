@@ -437,10 +437,20 @@ function Index() {
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
               className="rounded-2xl surface-card p-7"
             >
+              {c.image && (
+                <div className="mb-6 overflow-hidden rounded-xl ring-1 ring-primary/20">
+                  <img
+                    src={c.image}
+                    alt="Iqbal Virdiansyah presenting at the RISTEK Hackathon final, Fakultas Ilmu Komputer Universitas Indonesia"
+                    loading="lazy"
+                    className="h-52 w-full object-cover"
+                  />
+                </div>
+              )}
               <Trophy className="h-5 w-5 text-primary" />
               <h3 className="mt-4 text-xl text-foreground">{c.title}</h3>
               <p className="mt-1 text-xs uppercase tracking-[0.2em] text-primary/80">
-                {c.org} · {c.year}
+                {c.org} · {c.role} · {c.year}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 {c.body}
