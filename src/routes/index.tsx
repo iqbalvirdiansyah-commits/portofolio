@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { ArrowUpRight, Mail, Github, Linkedin, Trophy } from "lucide-react";
 import iqbalPhoto from "@/assets/iqbal.jpg.asset.json";
+import ristekPhoto from "@/assets/ristek.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
