@@ -8,8 +8,8 @@ import {
   type Variants,
 } from "framer-motion";
 import { ArrowUpRight, Mail, Github, Linkedin, Trophy } from "lucide-react";
-import iqbalPhoto from "@/assets/iqbal.jpg.asset.json";
-import ristekPhoto from "@/assets/ristek.jpg.asset.json";
+
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -94,7 +94,7 @@ const competitions = [
     role: "AI Engineer & Backend",
     year: "2025",
     body: "Menembus babak final sebagai AI Engineer dan Backend, membangun serta mempresentasikan prototipe produk dalam hitungan hari.",
-    image: ristekPhoto.url,
+    image: "/ristek.jpg",
   },
 ];
 
@@ -261,7 +261,7 @@ function Index() {
             className="relative overflow-hidden rounded-3xl surface-card p-2"
           >
             <img
-              src={iqbalPhoto.url}
+              src={"/iqbal.jpg"}
               alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
               loading="lazy"
               className="h-full w-full rounded-2xl object-cover"
