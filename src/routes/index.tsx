@@ -297,11 +297,7 @@ function Index() {
               viewport={{ once: true }}
               className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
             >
-              Saya mahasiswa Sistem Informasi Universitas Indonesia yang berdiri
-              di persimpangan teknologi, desain, dan bisnis. Ketertarikan saya
-              sederhana: menerjemahkan kebutuhan orang menjadi produk digital
-              yang rapi, cepat, dan enak dipakai, mulai dari riset kecil,
-              prototipe, sampai rilis yang benar-benar dipakai pengguna.
+              Saya adalah mahasiswa Sistem Informasi di Universitas Indonesia dengan minat mendalam pada titik temu antara teknologi, desain, dan bisnis. Fokus utama saya adalah menerjemahkan kebutuhan pengguna menjadi solusi digital yang efisien, intuitif, dan berkualitas tinggi—mencakup seluruh siklus pengembangan mulai dari riset awal dan pembuatan prototipe, hingga tahap peluncuran akhir yang memberikan dampak nyata bagi pengguna.
             </motion.p>
             <motion.div
               custom={4}
