@@ -45,11 +45,11 @@ const fadeUp: Variants = {
 const projects = [
   {
     name: "MUNKEY",
-    role: "Product & Frontend",
+    role: "Backend Engineer",
     year: "2025",
     href: "https://munkey-zeta.vercel.app/",
-    desc: "Platform lengkap untuk delegasi Model United Nations — berita, skill-sharing, dan DiplomAI, simulator berbasis AI untuk latihan debat.",
-    tags: ["Next.js", "AI Simulation", "Design System"],
+    desc: "Platform lengkap untuk delegasi Model United Nations: berita, skill-sharing, dan DiplomAI, simulator berbasis AI untuk latihan debat.",
+    tags: ["Backend", "AI Simulation", "API Design"],
   },
   {
     name: "Lingua",
