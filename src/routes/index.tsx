@@ -62,9 +62,9 @@ const projects = [
   {
     name: "Siakin",
     role: "Founder",
-    year: "2024",
+    year: "2026",
     href: "https://siakin.com",
-    desc: "Layanan joki KRS war — sistem cepat dan andal untuk mengamankan kelas mahasiswa saat trafik puncak.",
+    desc: "Layanan joki KRS war dengan sistem cepat dan andal untuk mengamankan kelas mahasiswa saat trafik puncak.",
     tags: ["Automation", "Ops", "Growth"],
   },
 ];
