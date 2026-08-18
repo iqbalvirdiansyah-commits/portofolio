@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   motion,
   useScroll,
@@ -129,6 +129,16 @@ function Magnetic({
 
 function Index() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
@@ -152,8 +162,18 @@ function Index() {
         className="fixed left-0 top-0 z-50 h-[2px] w-full origin-left bg-primary"
       />
 
-      <header className="fixed inset-x-0 top-0 z-40 bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
+      <header 
+        className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+          isScrolled 
+            ? "bg-background/80 backdrop-blur-md border-b border-white/5 shadow-sm" 
+            : "bg-transparent"
+        }`}
+      >
+        <div 
+          className={`mx-auto flex max-w-5xl items-center justify-between px-6 transition-all duration-300 ${
+            isScrolled ? "py-3" : "py-6"
+          }`}
+        >
           <span className="font-display text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-foreground/80">
             IQBAL VIRDIANSYAH
           </span>
