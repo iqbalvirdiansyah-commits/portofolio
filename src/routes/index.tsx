@@ -480,7 +480,7 @@ function Index() {
           </div>
         </motion.div>
         <p className="mt-10 text-center text-xs tracking-[0.2em] text-muted-foreground">
-          © {new Date().getFullYear()} IQBA
+          © {new Date().getFullYear()} IQBAL VIRDIANSYAH
         </p>
       </section>
     </main>
