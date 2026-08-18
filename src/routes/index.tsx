@@ -86,6 +86,25 @@ const activities = [
   },
 ];
 
+const competitions = [
+  {
+    title: "Finalist — RISTEK Hackathon",
+    org: "RISTEK Fasilkom UI",
+    year: "2025",
+    body: "Menembus babak final dengan prototipe produk yang dibangun dan dipresentasikan dalam hitungan hari.",
+  },
+];
+
+const stack = [
+  "React",
+  "TypeScript",
+  "Next.js",
+  "Framer Motion",
+  "Product Design",
+  "Business Development",
+];
+
+
 function Magnetic({
   children,
   className,
