@@ -310,7 +310,7 @@ function Index() {
               Saya mahasiswa Sistem Informasi Universitas Indonesia yang berdiri
               di persimpangan teknologi, desain, dan bisnis. Ketertarikan saya
               sederhana: menerjemahkan kebutuhan orang menjadi produk digital
-              yang rapi, cepat, dan enak dipakai — mulai dari riset kecil,
+              yang rapi, cepat, dan enak dipakai, mulai dari riset kecil,
               prototipe, sampai rilis yang benar-benar dipakai pengguna.
             </motion.p>
             <motion.div
