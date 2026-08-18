@@ -7,7 +7,8 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import { ArrowUpRight, Mail, Github, Linkedin } from "lucide-react";
+import { ArrowUpRight, Mail, Github, Linkedin, Trophy } from "lucide-react";
+import iqbalPhoto from "@/assets/iqbal.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -317,10 +318,10 @@ function Index() {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Magnetic className="inline-block">
               <a
-                href="mailto:hello@iqba.dev"
+                href="mailto:iqbalvirdiansyah@gmail.com"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
               >
-                <Mail className="h-4 w-4" /> hello@iqba.dev
+                <Mail className="h-4 w-4" /> iqbalvirdiansyah@gmail.com
               </a>
             </Magnetic>
             {[
