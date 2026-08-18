@@ -50,6 +50,7 @@ const projects = [
     href: "https://munkey-zeta.vercel.app/",
     desc: "Platform lengkap untuk delegasi Model United Nations: berita, skill-sharing, dan DiplomAI, simulator berbasis AI untuk latihan debat.",
     tags: ["Backend", "AI Simulation", "API Design"],
+    image: "/munkey.png",
   },
   {
     name: "Lingua",
@@ -58,6 +59,7 @@ const projects = [
     href: "https://lingua-phi.vercel.app/",
     desc: "Ruang belajar bahasa yang ringan dan fokus, dibangun dengan interaksi mikro agar proses latihan terasa mengalir.",
     tags: ["React", "Motion", "UX Writing"],
+    image: "/lingua.png",
   },
   {
     name: "Siakin",
@@ -66,6 +68,7 @@ const projects = [
     href: "https://siakin.com",
     desc: "Layanan joki KRS war dengan sistem cepat dan andal untuk mengamankan kelas mahasiswa saat trafik puncak.",
     tags: ["Automation", "Ops", "Growth"],
+    image: "/siakin.png",
   },
 ];
 
@@ -398,6 +401,16 @@ function Index() {
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
               className="group block rounded-2xl surface-card p-5 sm:p-7 transition-colors hover:border-primary/50"
             >
+              {p.image && (
+                <div className="mb-6 overflow-hidden rounded-xl ring-1 ring-primary/20">
+                  <img
+                    src={p.image}
+                    alt={`${p.name} project screenshot`}
+                    loading="lazy"
+                    className="aspect-video w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              )}
               <div className="flex items-start justify-between gap-6">
                 <div>
                   <h3 className="text-2xl text-foreground">{p.name}</h3>
