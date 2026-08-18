@@ -9,17 +9,18 @@ import {
 } from "framer-motion";
 import { ArrowUpRight, Mail, Github, Linkedin, Trophy } from "lucide-react";
 import iqbalPhoto from "@/assets/iqbal.jpg.asset.json";
+import ristekPhoto from "@/assets/ristek.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Iqba — Product & Web Portfolio" },
+      { title: "Iqbal Virdiansyah | Product & Web Portfolio" },
       {
         name: "description",
         content:
-          "Portfolio of Iqba: web platforms, AI products, and sponsorship work — MUNKEY, Lingua, Siakin, and COMPFEST 18.",
+          "Portfolio of Iqbal Virdiansyah: web platforms, AI products, and sponsorship work including MUNKEY, Lingua, Siakin, and COMPFEST 18.",
       },
-      { property: "og:title", content: "Iqba — Product & Web Portfolio" },
+      { property: "og:title", content: "Iqbal Virdiansyah | Product & Web Portfolio" },
       {
         property: "og:description",
         content:
@@ -44,11 +45,11 @@ const fadeUp: Variants = {
 const projects = [
   {
     name: "MUNKEY",
-    role: "Product & Frontend",
+    role: "Backend Engineer",
     year: "2025",
     href: "https://munkey-zeta.vercel.app/",
-    desc: "Platform lengkap untuk delegasi Model United Nations — berita, skill-sharing, dan DiplomAI, simulator berbasis AI untuk latihan debat.",
-    tags: ["Next.js", "AI Simulation", "Design System"],
+    desc: "Platform lengkap untuk delegasi Model United Nations: berita, skill-sharing, dan DiplomAI, simulator berbasis AI untuk latihan debat.",
+    tags: ["Backend", "AI Simulation", "API Design"],
   },
   {
     name: "Lingua",
@@ -61,9 +62,9 @@ const projects = [
   {
     name: "Siakin",
     role: "Founder",
-    year: "2024",
+    year: "2026",
     href: "https://siakin.com",
-    desc: "Layanan joki KRS war — sistem cepat dan andal untuk mengamankan kelas mahasiswa saat trafik puncak.",
+    desc: "Layanan joki KRS war dengan sistem cepat dan andal untuk mengamankan kelas mahasiswa saat trafik puncak.",
     tags: ["Automation", "Ops", "Growth"],
   },
 ];
@@ -71,7 +72,7 @@ const projects = [
 const activities = [
   {
     year: "2025",
-    title: "COMPFEST 18 — Sponsorship",
+    title: "COMPFEST 18 Sponsorship",
     body: "Closing deal sponsorship dengan Google Cloud Platform dan WIZ AI untuk event teknologi mahasiswa terbesar di Indonesia.",
   },
   {
@@ -80,7 +81,7 @@ const activities = [
     body: "Merancang alur simulasi AI yang menilai argumen delegasi MUN secara real-time.",
   },
   {
-    year: "2024",
+    year: "2026",
     title: "Siakin Launch",
     body: "Dari ide ke layanan berbayar dengan ratusan pengguna dalam satu musim KRS.",
   },
@@ -88,10 +89,12 @@ const activities = [
 
 const competitions = [
   {
-    title: "Finalist — RISTEK Hackathon",
+    title: "Finalist RISTEK Hackathon",
     org: "RISTEK Fasilkom UI",
+    role: "AI Engineer & Backend",
     year: "2025",
-    body: "Menembus babak final dengan prototipe produk yang dibangun dan dipresentasikan dalam hitungan hari.",
+    body: "Menembus babak final sebagai AI Engineer dan Backend, membangun serta mempresentasikan prototipe produk dalam hitungan hari.",
+    image: ristekPhoto.url,
   },
 ];
 
@@ -151,7 +154,8 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-40">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
           <span className="font-display text-sm tracking-[0.3em] text-foreground/80">
-            IQBA
+            IQBAL VIRDIANSYAH
+
           </span>
           <nav className="flex items-center gap-6 text-sm text-muted-foreground">
             {["about", "work", "activities", "competitions", "contact"].map((id) => (
@@ -210,17 +214,6 @@ function Index() {
             )}
           </h1>
 
-          <motion.p
-            custom={4}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground"
-          >
-            Saya merancang dan membangun web platform — dari simulasi AI untuk
-            delegasi MUN sampai layanan yang dipakai ratusan mahasiswa saat KRS
-            war.
-          </motion.p>
 
           <motion.div
             custom={5}
@@ -294,7 +287,7 @@ function Index() {
               viewport={{ once: true }}
               className="mt-6 text-3xl leading-tight text-gradient-teal sm:text-4xl"
             >
-              Iqbal Virdiansyah — Sistem Informasi, Universitas Indonesia.
+              Iqbal Virdiansyah, Sistem Informasi Universitas Indonesia.
             </motion.h3>
             <motion.p
               custom={2}
@@ -307,22 +300,8 @@ function Index() {
               Saya mahasiswa Sistem Informasi Universitas Indonesia yang berdiri
               di persimpangan teknologi, desain, dan bisnis. Ketertarikan saya
               sederhana: menerjemahkan kebutuhan orang menjadi produk digital
-              yang rapi, cepat, dan enak dipakai — mulai dari riset kecil,
+              yang rapi, cepat, dan enak dipakai, mulai dari riset kecil,
               prototipe, sampai rilis yang benar-benar dipakai pengguna.
-            </motion.p>
-            <motion.p
-              custom={3}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground"
-            >
-              Di luar kelas, saya membangun platform seperti MUNKEY dan Lingua,
-              menjalankan Siakin, menangani sponsorship COMPFEST 18 bersama
-              Google Cloud Platform dan WIZ AI, serta menembus final RISTEK
-              Hackathon. Saya senang bekerja di tim yang bergerak cepat dan
-              peduli pada detail.
             </motion.p>
             <motion.div
               custom={4}
@@ -434,10 +413,20 @@ function Index() {
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
               className="rounded-2xl surface-card p-7"
             >
+              {c.image && (
+                <div className="mb-6 overflow-hidden rounded-xl ring-1 ring-primary/20">
+                  <img
+                    src={c.image}
+                    alt="Iqbal Virdiansyah presenting at the RISTEK Hackathon final, Fakultas Ilmu Komputer Universitas Indonesia"
+                    loading="lazy"
+                    className="h-52 w-full object-cover"
+                  />
+                </div>
+              )}
               <Trophy className="h-5 w-5 text-primary" />
               <h3 className="mt-4 text-xl text-foreground">{c.title}</h3>
               <p className="mt-1 text-xs uppercase tracking-[0.2em] text-primary/80">
-                {c.org} · {c.year}
+                {c.org} · {c.role} · {c.year}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 {c.body}
@@ -491,7 +480,7 @@ function Index() {
           </div>
         </motion.div>
         <p className="mt-10 text-center text-xs tracking-[0.2em] text-muted-foreground">
-          © {new Date().getFullYear()} IQBA
+          © {new Date().getFullYear()} IQBAL VIRDIANSYAH
         </p>
       </section>
     </main>
