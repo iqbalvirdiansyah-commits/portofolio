@@ -1,24 +1,408 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type Variants,
+} from "framer-motion";
+import { ArrowUpRight, Mail, Github, Linkedin } from "lucide-react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Iqba — Product & Web Portfolio" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Iqba: web platforms, AI products, and sponsorship work — MUNKEY, Lingua, Siakin, and COMPFEST 18.",
+      },
+      { property: "og:title", content: "Iqba — Product & Web Portfolio" },
+      {
+        property: "og:description",
+        content:
+          "Selected work: MUNKEY, Lingua, Siakin, and sponsorship deals at COMPFEST 18.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const projects = [
+  {
+    name: "MUNKEY",
+    role: "Product & Frontend",
+    year: "2025",
+    href: "https://munkey-zeta.vercel.app/",
+    desc: "Platform lengkap untuk delegasi Model United Nations — berita, skill-sharing, dan DiplomAI, simulator berbasis AI untuk latihan debat.",
+    tags: ["Next.js", "AI Simulation", "Design System"],
+  },
+  {
+    name: "Lingua",
+    role: "Design & Build",
+    year: "2025",
+    href: "https://lingua-phi.vercel.app/",
+    desc: "Ruang belajar bahasa yang ringan dan fokus, dibangun dengan interaksi mikro agar proses latihan terasa mengalir.",
+    tags: ["React", "Motion", "UX Writing"],
+  },
+  {
+    name: "Siakin",
+    role: "Founder",
+    year: "2024",
+    href: "https://siakin.com",
+    desc: "Layanan joki KRS war — sistem cepat dan andal untuk mengamankan kelas mahasiswa saat trafik puncak.",
+    tags: ["Automation", "Ops", "Growth"],
+  },
+];
+
+const activities = [
+  {
+    year: "2025",
+    title: "COMPFEST 18 — Sponsorship",
+    body: "Closing deal sponsorship dengan Google Cloud Platform dan WIZ AI untuk event teknologi mahasiswa terbesar di Indonesia.",
+  },
+  {
+    year: "2025",
+    title: "DiplomAI Research",
+    body: "Merancang alur simulasi AI yang menilai argumen delegasi MUN secara real-time.",
+  },
+  {
+    year: "2024",
+    title: "Siakin Launch",
+    body: "Dari ide ke layanan berbayar dengan ratusan pengguna dalam satu musim KRS.",
+  },
+];
+
+function Magnetic({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+    <motion.span
+      className={className}
+      whileHover={{ y: -3, scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 420, damping: 22 }}
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+      {children}
+    </motion.span>
+  );
+}
+
+function Index() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.3,
+  });
+
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(heroProgress, [0, 1], [0, 120]);
+  const heroFade = useTransform(heroProgress, [0, 0.8], [1, 0]);
+  const glowScale = useTransform(heroProgress, [0, 1], [1, 1.6]);
+
+  return (
+    <main className="relative min-h-screen storm-bg overflow-x-hidden">
+      <motion.div
+        style={{ scaleX: progress }}
+        className="fixed left-0 top-0 z-50 h-[2px] w-full origin-left bg-primary"
       />
-    </div>
+
+      <header className="fixed inset-x-0 top-0 z-40">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
+          <span className="font-display text-sm tracking-[0.3em] text-foreground/80">
+            IQBA
+          </span>
+          <nav className="flex items-center gap-6 text-sm text-muted-foreground">
+            {["work", "activities", "contact"].map((id) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="relative transition-colors hover:text-primary"
+              >
+                {id}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section
+        ref={heroRef}
+        className="relative flex min-h-screen items-center px-6"
+      >
+        <motion.div
+          style={{ scale: glowScale }}
+          className="pointer-events-none absolute left-1/2 top-1/3 -z-0 h-[520px] w-[520px] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
+          aria-hidden
+        >
+          <div className="h-full w-full rounded-full bg-primary/30" />
+        </motion.div>
+
+        <motion.div
+          style={{ y: heroY, opacity: heroFade }}
+          className="relative mx-auto w-full max-w-5xl"
+        >
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="text-sm uppercase tracking-[0.35em] text-primary"
+          >
+            Jakarta · Product Builder
+          </motion.p>
+
+          <h1 className="mt-6 max-w-3xl text-5xl leading-[1.05] sm:text-7xl">
+            {["Membangun", "produk digital", "yang terasa hidup."].map(
+              (line, i) => (
+                <motion.span
+                  key={line}
+                  custom={i + 1}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  className="block text-gradient-teal"
+                >
+                  {line}
+                </motion.span>
+              ),
+            )}
+          </h1>
+
+          <motion.p
+            custom={4}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground"
+          >
+            Saya merancang dan membangun web platform — dari simulasi AI untuk
+            delegasi MUN sampai layanan yang dipakai ratusan mahasiswa saat KRS
+            war.
+          </motion.p>
+
+          <motion.div
+            custom={5}
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="mt-10 flex flex-wrap items-center gap-4"
+          >
+            <Magnetic className="inline-block">
+              <a
+                href="#work"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--glow-teal)]"
+              >
+                Lihat karya <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </Magnetic>
+            <a
+              href="#contact"
+              className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+            >
+              Ajak kolaborasi
+            </a>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-muted-foreground"
+        >
+          SCROLL
+        </motion.div>
+      </section>
+
+      {/* WORK */}
+      <section id="work" className="relative mx-auto max-w-5xl px-6 py-28">
+        <motion.h2
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="text-sm uppercase tracking-[0.35em] text-primary"
+        >
+          Selected work
+        </motion.h2>
+
+        <div className="mt-12 space-y-6">
+          {projects.map((p, i) => (
+            <motion.a
+              key={p.name}
+              href={p.href}
+              target="_blank"
+              rel="noreferrer"
+              custom={i}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              whileHover={{ y: -6 }}
+              transition={{ type: "spring", stiffness: 300, damping: 24 }}
+              className="group block rounded-2xl surface-card p-7 transition-colors hover:border-primary/50"
+            >
+              <div className="flex items-start justify-between gap-6">
+                <div>
+                  <h3 className="text-2xl text-foreground">{p.name}</h3>
+                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-primary/80">
+                    {p.role} · {p.year}
+                  </p>
+                </div>
+                <motion.span
+                  className="text-muted-foreground transition-colors group-hover:text-primary"
+                  initial={{ rotate: 0 }}
+                  whileHover={{ rotate: 45 }}
+                >
+                  <ArrowUpRight className="h-6 w-6" />
+                </motion.span>
+              </div>
+              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                {p.desc}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {p.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </section>
+
+      {/* ACTIVITIES — scrollytelling timeline */}
+      <ActivitiesSection />
+
+      {/* CONTACT */}
+      <section id="contact" className="mx-auto max-w-5xl px-6 pb-28 pt-8">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="rounded-3xl surface-card px-8 py-14 text-center"
+        >
+          <h2 className="text-4xl text-gradient-teal sm:text-5xl">
+            Punya ide? Mari bangun.
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground">
+            Terbuka untuk kolaborasi produk, sponsorship, dan proyek web.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <Magnetic className="inline-block">
+              <a
+                href="mailto:hello@iqba.dev"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
+              >
+                <Mail className="h-4 w-4" /> hello@iqba.dev
+              </a>
+            </Magnetic>
+            {[
+              { icon: Github, href: "https://github.com", label: "GitHub" },
+              { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+            ].map(({ icon: Icon, href, label }) => (
+              <Magnetic key={label} className="inline-block">
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              </Magnetic>
+            ))}
+          </div>
+        </motion.div>
+        <p className="mt-10 text-center text-xs tracking-[0.2em] text-muted-foreground">
+          © {new Date().getFullYear()} IQBA
+        </p>
+      </section>
+    </main>
+  );
+}
+
+function ActivitiesSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 70%", "end 60%"],
+  });
+  const lineScale = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 26,
+    mass: 0.3,
+  });
+
+  return (
+    <section id="activities" className="mx-auto max-w-5xl px-6 py-28">
+      <motion.h2
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="text-sm uppercase tracking-[0.35em] text-primary"
+      >
+        Activities
+      </motion.h2>
+
+      <div ref={ref} className="relative mt-12 pl-8">
+        <div className="absolute left-[3px] top-0 h-full w-px bg-border" />
+        <motion.div
+          style={{ scaleY: lineScale }}
+          className="absolute left-[3px] top-0 h-full w-px origin-top bg-primary"
+        />
+
+        <div className="space-y-14">
+          {activities.map((a, i) => (
+            <motion.div
+              key={a.title}
+              custom={i}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-80px" }}
+              className="relative"
+            >
+              <span className="absolute -left-8 top-2 h-[9px] w-[9px] -translate-x-[3px] rounded-full bg-primary shadow-[var(--glow-teal)]" />
+              <p className="text-xs tracking-[0.25em] text-muted-foreground">
+                {a.year}
+              </p>
+              <h3 className="mt-2 text-2xl text-foreground">{a.title}</h3>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                {a.body}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
