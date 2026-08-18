@@ -92,7 +92,7 @@ const competitions = [
     title: "Finalist RISTEK Hackathon",
     org: "RISTEK Fasilkom UI",
     role: "AI Engineer & Backend",
-    year: "2025",
+    year: "2026",
     body: "Menembus babak final sebagai AI Engineer dan Backend, membangun serta mempresentasikan prototipe produk dalam hitungan hari.",
     image: "/ristek.jpg",
   },
