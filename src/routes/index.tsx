@@ -154,7 +154,7 @@ function Index() {
             IQBA
           </span>
           <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-            {["work", "activities", "contact"].map((id) => (
+            {["about", "work", "activities", "competitions", "contact"].map((id) => (
               <a
                 key={id}
                 href={`#${id}`}
