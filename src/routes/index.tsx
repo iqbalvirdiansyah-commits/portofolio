@@ -153,11 +153,10 @@ function Index() {
 
       <header className="fixed inset-x-0 top-0 z-40">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
-          <span className="font-display text-sm tracking-[0.3em] text-foreground/80">
+          <span className="font-display text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-foreground/80">
             IQBAL VIRDIANSYAH
-
           </span>
-          <nav className="flex items-center gap-6 text-sm text-muted-foreground">
+          <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             {["about", "work", "activities", "competitions", "contact"].map((id) => (
               <a
                 key={id}
@@ -192,12 +191,12 @@ function Index() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="text-sm uppercase tracking-[0.35em] text-primary"
+            className="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.35em] text-primary"
           >
-            Jakarta · Product Builder
+            Jakarta &middot; Product Builder
           </motion.p>
 
-          <h1 className="mt-6 max-w-3xl text-5xl leading-[1.05] sm:text-7xl">
+          <h1 className="mt-6 max-w-3xl text-4xl sm:text-5xl md:text-7xl leading-[1.15] sm:leading-[1.05]">
             {["Membangun", "produk digital", "yang terasa hidup."].map(
               (line, i) => (
                 <motion.span
@@ -258,7 +257,7 @@ function Index() {
             viewport={{ once: true, margin: "-80px" }}
             whileHover={{ y: -6, rotate: -1 }}
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            className="relative overflow-hidden rounded-3xl surface-card p-2"
+            className="relative overflow-hidden rounded-3xl surface-card p-2 aspect-[4/5] md:aspect-auto"
           >
             <img
               src={"/iqbal.jpg"}
@@ -347,7 +346,7 @@ function Index() {
               viewport={{ once: true, margin: "-60px" }}
               whileHover={{ y: -6 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="group block rounded-2xl surface-card p-7 transition-colors hover:border-primary/50"
+              className="group block rounded-2xl surface-card p-5 sm:p-7 transition-colors hover:border-primary/50"
             >
               <div className="flex items-start justify-between gap-6">
                 <div>
@@ -382,7 +381,7 @@ function Index() {
         </div>
       </section>
 
-      {/* ACTIVITIES — scrollytelling timeline */}
+      {/* ACTIVITIES - scrollytelling timeline */}
       <ActivitiesSection />
 
       {/* COMPETITIONS */}
@@ -407,7 +406,7 @@ function Index() {
               viewport={{ once: true, margin: "-60px" }}
               whileHover={{ y: -6 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="rounded-2xl surface-card p-7"
+              className="rounded-2xl surface-card p-5 sm:p-7"
             >
               {c.image && (
                 <div className="mb-6 overflow-hidden rounded-xl ring-1 ring-primary/20">
@@ -440,9 +439,9 @@ function Index() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="rounded-3xl surface-card px-8 py-14 text-center"
+          className="rounded-3xl surface-card px-5 py-10 sm:px-8 sm:py-14 text-center"
         >
-          <h2 className="text-4xl text-gradient-teal sm:text-5xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl text-gradient-teal">
             Punya ide? Mari bangun.
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground">
