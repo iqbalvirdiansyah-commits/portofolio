@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -7,7 +7,7 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import { ArrowUpRight, Mail, Github, Linkedin, Trophy } from "lucide-react";
+import { ArrowUpRight, Mail, Github, Linkedin, Trophy, Menu, X } from "lucide-react";
 
 
 
@@ -128,6 +128,7 @@ function Magnetic({
 }
 
 function Index() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
@@ -151,11 +152,12 @@ function Index() {
         className="fixed left-0 top-0 z-50 h-[2px] w-full origin-left bg-primary"
       />
 
-      <header className="fixed inset-x-0 top-0 z-40">
+      <header className="fixed inset-x-0 top-0 z-40 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
           <span className="font-display text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-foreground/80">
             IQBAL VIRDIANSYAH
           </span>
+          
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             {["about", "work", "activities", "competitions", "contact"].map((id) => (
               <a
@@ -167,7 +169,35 @@ function Index() {
               </a>
             ))}
           </nav>
+
+          <button 
+            className="md:hidden p-2 text-foreground"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {isMenuOpen && (
+          <motion.nav 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-lg border-b border-border py-4 px-6 flex flex-col gap-4 shadow-xl"
+          >
+            {["about", "work", "activities", "competitions", "contact"].map((id) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary"
+              >
+                {id}
+              </a>
+            ))}
+          </motion.nav>
+        )}
       </header>
 
       {/* HERO */}
