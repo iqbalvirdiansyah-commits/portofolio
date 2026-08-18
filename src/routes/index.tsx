@@ -255,7 +255,98 @@ function Index() {
         </motion.div>
       </section>
 
+      {/* ABOUT */}
+      <section id="about" className="mx-auto max-w-5xl px-6 py-28">
+        <div className="grid items-center gap-12 md:grid-cols-[minmax(0,340px)_1fr]">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            whileHover={{ y: -6, rotate: -1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            className="relative overflow-hidden rounded-3xl surface-card p-2"
+          >
+            <img
+              src={iqbalPhoto.url}
+              alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
+              loading="lazy"
+              className="h-full w-full rounded-2xl object-cover"
+            />
+            <div className="pointer-events-none absolute inset-2 rounded-2xl ring-1 ring-primary/20" />
+          </motion.div>
+
+          <div>
+            <motion.h2
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="text-sm uppercase tracking-[0.35em] text-primary"
+            >
+              About
+            </motion.h2>
+            <motion.h3
+              custom={1}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-6 text-3xl leading-tight text-gradient-teal sm:text-4xl"
+            >
+              Iqbal Virdiansyah — Sistem Informasi, Universitas Indonesia.
+            </motion.h3>
+            <motion.p
+              custom={2}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
+            >
+              Saya mahasiswa Sistem Informasi Universitas Indonesia yang berdiri
+              di persimpangan teknologi, desain, dan bisnis. Ketertarikan saya
+              sederhana: menerjemahkan kebutuhan orang menjadi produk digital
+              yang rapi, cepat, dan enak dipakai — mulai dari riset kecil,
+              prototipe, sampai rilis yang benar-benar dipakai pengguna.
+            </motion.p>
+            <motion.p
+              custom={3}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground"
+            >
+              Di luar kelas, saya membangun platform seperti MUNKEY dan Lingua,
+              menjalankan Siakin, menangani sponsorship COMPFEST 18 bersama
+              Google Cloud Platform dan WIZ AI, serta menembus final RISTEK
+              Hackathon. Saya senang bekerja di tim yang bergerak cepat dan
+              peduli pada detail.
+            </motion.p>
+            <motion.div
+              custom={4}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="mt-8 flex flex-wrap gap-2"
+            >
+              {stack.map((s) => (
+                <span
+                  key={s}
+                  className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
+                >
+                  {s}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* WORK */}
+
       <section id="work" className="relative mx-auto max-w-5xl px-6 py-28">
         <motion.h2
           variants={fadeUp}
