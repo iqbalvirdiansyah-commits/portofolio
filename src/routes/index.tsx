@@ -287,7 +287,7 @@ function Index() {
               viewport={{ once: true }}
               className="mt-6 text-3xl leading-tight text-gradient-teal sm:text-4xl"
             >
-              Iqbal Virdiansyah — Sistem Informasi, Universitas Indonesia.
+              Iqbal Virdiansyah, Sistem Informasi Universitas Indonesia.
             </motion.h3>
             <motion.p
               custom={2}
