@@ -154,7 +154,8 @@ function Index() {
       <header className="fixed inset-x-0 top-0 z-40">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
           <span className="font-display text-sm tracking-[0.3em] text-foreground/80">
-            IQBA
+            IQBAL VIRDIANSYAH
+
           </span>
           <nav className="flex items-center gap-6 text-sm text-muted-foreground">
             {["about", "work", "activities", "competitions", "contact"].map((id) => (
