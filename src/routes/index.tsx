@@ -319,6 +319,44 @@ function Index() {
       {/* ACTIVITIES — scrollytelling timeline */}
       <ActivitiesSection />
 
+      {/* COMPETITIONS */}
+      <section id="competitions" className="mx-auto max-w-5xl px-6 pb-8">
+        <motion.h2
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-sm uppercase tracking-[0.35em] text-primary"
+        >
+          Competitions
+        </motion.h2>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          {competitions.map((c, i) => (
+            <motion.div
+              key={c.title}
+              custom={i}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              whileHover={{ y: -6 }}
+              transition={{ type: "spring", stiffness: 300, damping: 24 }}
+              className="rounded-2xl surface-card p-7"
+            >
+              <Trophy className="h-5 w-5 text-primary" />
+              <h3 className="mt-4 text-xl text-foreground">{c.title}</h3>
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-primary/80">
+                {c.org} · {c.year}
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                {c.body}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+
       {/* CONTACT */}
       <section id="contact" className="mx-auto max-w-5xl px-6 pb-28 pt-8">
         <motion.div
