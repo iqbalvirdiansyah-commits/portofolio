@@ -72,7 +72,7 @@ const projects = [
 const activities = [
   {
     year: "2025",
-    title: "COMPFEST 18 — Sponsorship",
+    title: "COMPFEST 18 Sponsorship",
     body: "Closing deal sponsorship dengan Google Cloud Platform dan WIZ AI untuk event teknologi mahasiswa terbesar di Indonesia.",
   },
   {
