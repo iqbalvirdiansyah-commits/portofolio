@@ -14,13 +14,13 @@ import ristekPhoto from "@/assets/ristek.jpg.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Iqba — Product & Web Portfolio" },
+      { title: "Iqbal Virdiansyah | Product & Web Portfolio" },
       {
         name: "description",
         content:
-          "Portfolio of Iqba: web platforms, AI products, and sponsorship work — MUNKEY, Lingua, Siakin, and COMPFEST 18.",
+          "Portfolio of Iqbal Virdiansyah: web platforms, AI products, and sponsorship work including MUNKEY, Lingua, Siakin, and COMPFEST 18.",
       },
-      { property: "og:title", content: "Iqba — Product & Web Portfolio" },
+      { property: "og:title", content: "Iqbal Virdiansyah | Product & Web Portfolio" },
       {
         property: "og:description",
         content:
