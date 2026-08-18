@@ -81,7 +81,7 @@ const activities = [
     body: "Merancang alur simulasi AI yang menilai argumen delegasi MUN secara real-time.",
   },
   {
-    year: "2024",
+    year: "2026",
     title: "Siakin Launch",
     body: "Dari ide ke layanan berbayar dengan ratusan pengguna dalam satu musim KRS.",
   },
@@ -89,10 +89,12 @@ const activities = [
 
 const competitions = [
   {
-    title: "Finalist — RISTEK Hackathon",
+    title: "Finalist RISTEK Hackathon",
     org: "RISTEK Fasilkom UI",
+    role: "AI Engineer & Backend",
     year: "2025",
-    body: "Menembus babak final dengan prototipe produk yang dibangun dan dipresentasikan dalam hitungan hari.",
+    body: "Menembus babak final sebagai AI Engineer dan Backend, membangun serta mempresentasikan prototipe produk dalam hitungan hari.",
+    image: ristekPhoto.url,
   },
 ];
 
