@@ -313,20 +313,6 @@ function Index() {
               yang rapi, cepat, dan enak dipakai — mulai dari riset kecil,
               prototipe, sampai rilis yang benar-benar dipakai pengguna.
             </motion.p>
-            <motion.p
-              custom={3}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground"
-            >
-              Di luar kelas, saya membangun platform seperti MUNKEY dan Lingua,
-              menjalankan Siakin, menangani sponsorship COMPFEST 18 bersama
-              Google Cloud Platform dan WIZ AI, serta menembus final RISTEK
-              Hackathon. Saya senang bekerja di tim yang bergerak cepat dan
-              peduli pada detail.
-            </motion.p>
             <motion.div
               custom={4}
               variants={fadeUp}
