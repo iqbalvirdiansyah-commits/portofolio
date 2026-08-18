@@ -213,17 +213,6 @@ function Index() {
             )}
           </h1>
 
-          <motion.p
-            custom={4}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground"
-          >
-            Saya merancang dan membangun web platform — dari simulasi AI untuk
-            delegasi MUN sampai layanan yang dipakai ratusan mahasiswa saat KRS
-            war.
-          </motion.p>
 
           <motion.div
             custom={5}
