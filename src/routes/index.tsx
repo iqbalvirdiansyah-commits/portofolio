@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import AccordionGallery from "../components/AccordionGallery";
+import GradientText from "../components/GradientText";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -178,9 +179,14 @@ function Index() {
             isScrolled ? "py-3" : "py-6"
           }`}
         >
-          <span className="font-display text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-foreground/80">
+          <GradientText
+            colors={["#14B8A6", "#0EA5E9", "#14B8A6"]}
+            animationSpeed={6}
+            showBorder={false}
+            className="!m-0 font-display text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em]"
+          >
             IQBAL VIRDIANSYAH
-          </span>
+          </GradientText>
           
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             {["about", "work", "activities", "competitions", "contact"].map((id) => (
@@ -253,16 +259,23 @@ function Index() {
           <h1 className="mt-6 max-w-3xl text-4xl sm:text-5xl md:text-7xl leading-[1.15] sm:leading-[1.05]">
             {["Membangun", "produk digital", "yang terasa hidup."].map(
               (line, i) => (
-                <motion.span
+                <motion.div
                   key={line}
                   custom={i + 1}
                   variants={fadeUp}
                   initial="hidden"
                   animate="show"
-                  className="block text-gradient-teal"
+                  className="block w-fit"
                 >
-                  {line}
-                </motion.span>
+                  <GradientText
+                    colors={["#14B8A6", "#0EA5E9", "#14B8A6"]}
+                    animationSpeed={8}
+                    showBorder={false}
+                    className="!m-0 !justify-start"
+                  >
+                    {line}
+                  </GradientText>
+                </motion.div>
               ),
             )}
           </h1>
