@@ -385,7 +385,7 @@ function Index() {
           Selected work
         </motion.h2>
 
-        <div className="mt-12 space-y-6">
+        <div className="mt-12 flex flex-col gap-8 sm:gap-12 pb-24">
           {projects.map((p, i) => (
             <motion.a
               key={p.name}
@@ -397,47 +397,58 @@ function Index() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-60px" }}
-              whileHover={{ y: -6 }}
+              whileHover={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="group block rounded-2xl surface-card p-5 sm:p-7 transition-colors hover:border-primary/50"
+              className="group sticky block overflow-hidden rounded-[2rem] surface-card border border-white/5 shadow-2xl bg-background/95 backdrop-blur-xl transition-all"
+              style={{ top: `calc(7rem + ${i * 2}rem)` }}
             >
-              {p.image && (
-                <div className="mb-6 overflow-hidden rounded-xl ring-1 ring-primary/20">
-                  <img
-                    src={p.image}
-                    alt={`${p.name} project screenshot`}
-                    loading="lazy"
-                    className="aspect-video w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              )}
-              <div className="flex items-start justify-between gap-6">
-                <div>
-                  <h3 className="text-2xl text-foreground">{p.name}</h3>
-                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-primary/80">
-                    {p.role} · {p.year}
+              <div className="grid md:grid-cols-2 gap-8 sm:gap-12 p-6 sm:p-10">
+                
+                {/* Text Content */}
+                <div className="flex flex-col justify-center order-2 md:order-1">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="text-3xl text-foreground font-medium tracking-tight">{p.name}</h3>
+                      <p className="mt-2 text-xs uppercase tracking-[0.2em] text-primary/80">
+                        {p.role} &middot; {p.year}
+                      </p>
+                    </div>
+                    <span className="md:hidden text-muted-foreground transition-colors group-hover:text-primary">
+                      <ArrowUpRight className="h-6 w-6" />
+                    </span>
+                  </div>
+                  <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+                    {p.desc}
                   </p>
+                  <div className="mt-8 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <motion.span
-                  className="text-muted-foreground transition-colors group-hover:text-primary"
-                  initial={{ rotate: 0 }}
-                  whileHover={{ rotate: 45 }}
-                >
-                  <ArrowUpRight className="h-6 w-6" />
-                </motion.span>
-              </div>
-              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                {p.desc}
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
-                  >
-                    {t}
-                  </span>
-                ))}
+
+                {/* Image */}
+                {p.image && (
+                  <div className="relative order-1 md:order-2 overflow-hidden rounded-2xl ring-1 ring-primary/20 md:h-[280px]">
+                    <img
+                      src={p.image}
+                      alt={`${p.name} project screenshot`}
+                      loading="lazy"
+                      className="aspect-video md:aspect-auto h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="hidden md:flex absolute inset-0 items-center justify-center bg-background/10 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+                        <ArrowUpRight className="h-6 w-6" />
+                      </span>
+                    </div>
+                  </div>
+                )}
+
               </div>
             </motion.a>
           ))}
