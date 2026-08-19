@@ -50,7 +50,7 @@ const projects = [
     role: "Backend Engineer",
     year: "2025",
     href: "https://munkey-zeta.vercel.app/",
-    desc: "Platform lengkap untuk delegasi Model United Nations: berita, skill-sharing, dan DiplomAI, simulator berbasis AI untuk latihan debat.",
+    desc: "A comprehensive platform for Model United Nations delegates featuring news, skill-sharing, and DiplomAI—an AI-driven debate simulator.",
     tags: ["Backend", "AI Simulation", "API Design"],
     image: "/munkey.png",
   },
@@ -59,7 +59,7 @@ const projects = [
     role: "Design & Build",
     year: "2025",
     href: "https://lingua-phi.vercel.app/",
-    desc: "Ruang belajar bahasa yang ringan dan fokus, dibangun dengan interaksi mikro agar proses latihan terasa mengalir.",
+    desc: "A lightweight and focused language learning space, crafted with micro-interactions for a seamless and engaging practice flow.",
     tags: ["React", "Motion", "UX Writing"],
     image: "/lingua.png",
   },
@@ -68,7 +68,7 @@ const projects = [
     role: "Founder",
     year: "2026",
     href: "https://siakin.com",
-    desc: "Layanan joki KRS war dengan sistem cepat dan andal untuk mengamankan kelas mahasiswa saat trafik puncak.",
+    desc: "A fast and reliable course-bidding service designed to secure students' desired classes during peak traffic hours.",
     tags: ["Automation", "Ops", "Growth"],
     image: "/siakin.png",
   },
@@ -78,17 +78,17 @@ const activities = [
   {
     year: "2025",
     title: "COMPFEST 18 Sponsorship",
-    body: "Closing deal sponsorship dengan Google Cloud Platform dan WIZ AI untuk event teknologi mahasiswa terbesar di Indonesia.",
+    body: "Closed sponsorship deals with Google Cloud Platform and WIZ AI for Indonesia's largest student-led technology event.",
   },
   {
     year: "2025",
     title: "DiplomAI Research",
-    body: "Merancang alur simulasi AI yang menilai argumen delegasi MUN secara real-time.",
+    body: "Designed an AI simulation pipeline to evaluate arguments of MUN delegates in real-time.",
   },
   {
     year: "2026",
     title: "Siakin Launch",
-    body: "Dari ide ke layanan berbayar dengan ratusan pengguna dalam satu musim KRS.",
+    body: "Scaled from an initial concept to a paid service with hundreds of users within a single course registration season.",
   },
 ];
 
@@ -98,7 +98,7 @@ const competitions = [
     org: "RISTEK Fasilkom UI",
     role: "AI Engineer & Backend",
     year: "2026",
-    body: "Menembus babak final sebagai AI Engineer dan Backend, membangun serta mempresentasikan prototipe produk dalam hitungan hari.",
+    body: "Advanced to the final round as an AI & Backend Engineer, building and presenting a working product prototype within days.",
     image: "/ristek.jpg",
   },
 ];
@@ -257,7 +257,7 @@ function Index() {
           </motion.p>
 
           <h1 className="mt-6 max-w-3xl text-4xl sm:text-5xl md:text-7xl leading-[1.15] sm:leading-[1.05]">
-            {["Membangun", "produk digital", "yang terasa hidup."].map(
+            {["Building", "digital products", "that feel alive."].map(
               (line, i) => (
                 <motion.div
                   key={line}
@@ -293,14 +293,14 @@ function Index() {
                 href="#work"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--glow-teal)]"
               >
-                Lihat karya <ArrowUpRight className="h-4 w-4" />
+                View works <ArrowUpRight className="h-4 w-4" />
               </a>
             </Magnetic>
             <a
               href="#contact"
               className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
             >
-              Ajak kolaborasi
+              Let's collaborate
             </a>
           </motion.div>
         </motion.div>
@@ -370,7 +370,7 @@ function Index() {
               viewport={{ once: true }}
               className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
             >
-              Saya adalah mahasiswa Sistem Informasi di Universitas Indonesia dengan minat mendalam pada titik temu antara teknologi, desain, dan bisnis. Fokus utama saya adalah menerjemahkan kebutuhan pengguna menjadi solusi digital yang efisien, intuitif, dan berkualitas tinggi. Pendekatan saya mencakup seluruh siklus pengembangan mulai dari riset awal dan pembuatan prototipe, hingga tahap peluncuran akhir yang memberikan dampak nyata bagi pengguna.
+              I am an Information Systems student at Universitas Indonesia with a deep passion for the intersection of technology, design, and business. My primary focus is translating user needs into digital solutions that are efficient, intuitive, and of high quality. My approach spans the entire development lifecycle—from initial research and prototyping to the final launch—delivering tangible impact for users.
             </motion.p>
             <motion.div
               custom={4}
@@ -549,10 +549,10 @@ function Index() {
           className="rounded-3xl surface-card px-5 py-10 sm:px-8 sm:py-14 text-center"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl text-gradient-teal">
-            Punya ide? Mari bangun.
+            Got an idea? Let's build it.
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground">
-            Terbuka untuk kolaborasi produk, sponsorship, dan proyek web.
+            Open for product collaborations, sponsorships, and web projects.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Magnetic className="inline-block">
