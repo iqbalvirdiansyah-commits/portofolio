@@ -385,27 +385,22 @@ function Index() {
           Selected work
         </motion.h2>
 
-        <div className="mt-12 flex flex-col gap-8 sm:gap-12 pb-24">
+        <div className="mt-12 md:mt-24 flex flex-col">
           {projects.map((p, i) => (
-            <motion.a
-              key={p.name}
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              custom={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-60px" }}
-              whileHover={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="group sticky block overflow-hidden rounded-[2rem] surface-card border border-white/5 shadow-2xl bg-background/95 backdrop-blur-xl transition-all"
-              style={{ top: `calc(7rem + ${i * 2}rem)` }}
+            <div 
+              key={p.name} 
+              className="relative flex flex-col md:flex-row gap-8 md:gap-20 min-h-[90vh] md:min-h-[110vh] items-stretch border-t border-white/5 py-16 md:py-0"
             >
-              <div className="grid md:grid-cols-2 gap-8 sm:gap-12 p-6 sm:p-10">
-                
-                {/* Text Content */}
-                <div className="flex flex-col justify-center order-2 md:order-1">
+              
+              {/* Left: Scrolling Text */}
+              <div className="w-full md:w-1/2 flex flex-col justify-center order-2 md:order-1 md:py-32">
+                <motion.div
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: "-100px" }}
+                  className="surface-card p-8 sm:p-10 rounded-[2rem] border border-white/5 shadow-xl"
+                >
                   <div className="flex items-start justify-between">
                     <div>
                       <h3 className="text-3xl text-foreground font-medium tracking-tight">{p.name}</h3>
@@ -413,9 +408,6 @@ function Index() {
                         {p.role} &middot; {p.year}
                       </p>
                     </div>
-                    <span className="md:hidden text-muted-foreground transition-colors group-hover:text-primary">
-                      <ArrowUpRight className="h-6 w-6" />
-                    </span>
                   </div>
                   <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
                     {p.desc}
@@ -430,27 +422,50 @@ function Index() {
                       </span>
                     ))}
                   </div>
-                </div>
-
-                {/* Image */}
-                {p.image && (
-                  <div className="relative order-1 md:order-2 overflow-hidden rounded-2xl ring-1 ring-primary/20 md:h-[280px]">
-                    <img
-                      src={p.image}
-                      alt={`${p.name} project screenshot`}
-                      loading="lazy"
-                      className="aspect-video md:aspect-auto h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="hidden md:flex absolute inset-0 items-center justify-center bg-background/10 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                        <ArrowUpRight className="h-6 w-6" />
-                      </span>
-                    </div>
-                  </div>
-                )}
-
+                  
+                  <a 
+                    href={p.href} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="mt-10 inline-flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group w-fit"
+                  >
+                    Kunjungi Web 
+                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </a>
+                </motion.div>
               </div>
-            </motion.a>
+
+              {/* Right: Sticky Image */}
+              <div className="w-full md:w-1/2 order-1 md:order-2">
+                <div className="md:sticky md:top-32 w-full h-[30vh] sm:h-[40vh] md:h-[60vh] rounded-[2rem] overflow-hidden ring-1 ring-primary/20 surface-card p-2 shadow-2xl">
+                  {p.image ? (
+                    <motion.a
+                      href={p.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group block relative h-full w-full rounded-2xl overflow-hidden"
+                      whileHover={{ scale: 0.98 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                    >
+                      <img
+                        src={p.image}
+                        alt={`${p.name} project screenshot`}
+                        loading="lazy"
+                        className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="hidden md:flex absolute inset-0 items-center justify-center bg-background/20 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+                          <ArrowUpRight className="h-6 w-6" />
+                        </span>
+                      </div>
+                    </motion.a>
+                  ) : (
+                    <div className="h-full w-full rounded-2xl bg-secondary/50" />
+                  )}
+                </div>
+              </div>
+
+            </div>
           ))}
         </div>
       </section>
