@@ -345,16 +345,23 @@ function Index() {
             >
               About
             </motion.h2>
-            <motion.h3
-              custom={1}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-6 text-3xl leading-tight text-gradient-teal sm:text-4xl"
-            >
-              Iqbal Virdiansyah, Sistem Informasi Universitas Indonesia.
-            </motion.h3>
+              <motion.div
+                custom={1}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                className="mt-6 w-fit"
+              >
+                <GradientText
+                  colors={["#14B8A6", "#0EA5E9", "#14B8A6"]}
+                  animationSpeed={8}
+                  showBorder={false}
+                  className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
+                >
+                  Iqbal Virdiansyah, Sistem Informasi Universitas Indonesia.
+                </GradientText>
+              </motion.div>
             <motion.p
               custom={2}
               variants={fadeUp}
