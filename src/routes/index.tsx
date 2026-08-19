@@ -385,18 +385,18 @@ function Index() {
           Selected work
         </motion.h2>
 
-        <div className="mt-12 md:mt-24 pb-24 relative">
+        <div className="mt-12 md:mt-20 pb-20 relative">
           {projects.map((p, i) => (
             <motion.div 
               key={p.name}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="sticky flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full md:h-[600px] bg-background border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[2.5rem] p-6 sm:p-10 md:p-12 overflow-hidden"
+              className="sticky flex flex-col md:flex-row items-center gap-6 md:gap-10 w-full md:h-[380px] bg-background border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[2rem] p-6 md:p-8 overflow-hidden"
               style={{ 
-                top: `calc(10vh + ${i * 40}px)`, 
-                marginBottom: i === projects.length - 1 ? '0' : '40vh',
+                top: `calc(15vh + ${i * 30}px)`, 
+                marginBottom: i === projects.length - 1 ? '0' : '20vh',
                 zIndex: i 
               }}
             >
@@ -404,19 +404,19 @@ function Index() {
               {/* Left: Text Content */}
               <div className="w-full md:w-[45%] flex flex-col justify-center order-2 md:order-1 h-full">
                 <div>
-                  <h3 className="text-4xl sm:text-5xl text-foreground font-medium tracking-tight">{p.name}</h3>
-                  <p className="mt-4 text-xs sm:text-sm uppercase tracking-[0.2em] text-primary/80">
+                  <h3 className="text-2xl sm:text-3xl text-foreground font-medium tracking-tight">{p.name}</h3>
+                  <p className="mt-2 text-[10px] sm:text-xs uppercase tracking-[0.2em] text-primary/80">
                     {p.role} &middot; {p.year}
                   </p>
                 </div>
-                <p className="mt-6 sm:mt-8 text-sm sm:text-base leading-relaxed text-muted-foreground">
+                <p className="mt-4 sm:mt-5 text-xs sm:text-sm leading-relaxed text-muted-foreground">
                   {p.desc}
                 </p>
-                <div className="mt-8 flex flex-wrap gap-2 sm:gap-3">
+                <div className="mt-6 flex flex-wrap gap-2">
                   {p.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-xs text-muted-foreground"
+                      className="rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-[10px] text-muted-foreground"
                     >
                       {t}
                     </span>
@@ -427,7 +427,7 @@ function Index() {
                   href={p.href} 
                   target="_blank" 
                   rel="noreferrer"
-                  className="mt-10 sm:mt-12 inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors group w-fit"
+                  className="mt-8 sm:mt-10 inline-flex items-center gap-2 text-xs font-medium text-foreground hover:text-primary transition-colors group w-fit"
                 >
                   Kunjungi Web 
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -435,12 +435,12 @@ function Index() {
               </div>
 
               {/* Right: Image */}
-              <div className="w-full md:w-[55%] h-[300px] md:h-full order-1 md:order-2">
+              <div className="w-full md:w-[55%] h-[200px] md:h-full order-1 md:order-2">
                 <a 
                   href={p.href} 
                   target="_blank" 
                   rel="noreferrer"
-                  className="group block relative h-full w-full rounded-[1.5rem] overflow-hidden ring-1 ring-primary/20"
+                  className="group block relative h-full w-full rounded-2xl overflow-hidden ring-1 ring-primary/20"
                 >
                   <img
                     src={p.image}
@@ -449,8 +449,8 @@ function Index() {
                     className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="hidden md:flex absolute inset-0 items-center justify-center bg-background/20 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                      <ArrowUpRight className="h-6 w-6" />
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+                      <ArrowUpRight className="h-5 w-5" />
                     </span>
                   </div>
                 </a>
