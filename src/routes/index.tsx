@@ -387,31 +387,84 @@ function Index() {
         </motion.h2>
 
         <div className="mt-12 md:mt-20">
-          <AccordionGallery
-            items={projects.map(p => ({
-              image: p.image || '',
-              label: p.name,
-              link: p.href,
-              description: `${p.role} — ${p.desc}`
-            }))}
-            defaultIndex={0}
-            expandRatio={0.52}
-            trigger="hover"
-            accentColor="#ffffff"
-            overlayColor="#0a0713"
-            textColor="#ffffff"
-            grayscale={false}
-            showLabels={true}
-            duration={0.6}
-            ease="power3.out"
-            parallax={0.5}
-            tilt={8}
-            stagger={0.06}
-            height={500}
-            gap={10}
-            radius={24}
-            orientation="horizontal"
-          />
+          {/* Desktop Layout: Accordion Gallery */}
+          <div className="hidden md:block">
+            <AccordionGallery
+              items={projects.map(p => ({
+                image: p.image || '',
+                label: p.name,
+                link: p.href,
+                description: `${p.role} — ${p.desc}`
+              }))}
+              defaultIndex={0}
+              expandRatio={0.52}
+              trigger="hover"
+              accentColor="#ffffff"
+              overlayColor="#0a0713"
+              textColor="#ffffff"
+              grayscale={false}
+              showLabels={true}
+              duration={0.6}
+              ease="power3.out"
+              parallax={0.5}
+              tilt={8}
+              stagger={0.06}
+              height={500}
+              gap={10}
+              radius={24}
+              orientation="horizontal"
+            />
+          </div>
+
+          {/* Mobile Layout: Stacked Cards */}
+          <div className="md:hidden flex flex-col gap-8">
+            {projects.map((p, i) => (
+              <motion.a
+                key={p.name}
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-50px" }}
+                whileHover={{ scale: 0.98 }}
+                className="group block rounded-[2rem] surface-card border border-white/5 overflow-hidden shadow-xl"
+              >
+                <div className="aspect-[4/3] w-full overflow-hidden relative ring-1 ring-primary/20">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0713]/80 via-transparent to-transparent" />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-2xl text-foreground font-medium">{p.name}</h3>
+                    <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+                  </div>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-primary/80">
+                    {p.role} &middot; {p.year}
+                  </p>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground line-clamp-3">
+                    {p.desc}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-[10px] text-muted-foreground"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
         </div>
       </section>
 
