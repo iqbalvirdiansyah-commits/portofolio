@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import AccordionGallery from "../components/AccordionGallery";
 import GradientText from "../components/GradientText";
+import GradientWaves from "../components/GradientWaves";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -235,17 +236,37 @@ function Index() {
         ref={heroRef}
         className="relative flex min-h-screen items-center px-6"
       >
-        <motion.div
-          style={{ scale: glowScale }}
-          className="pointer-events-none absolute left-1/2 top-1/3 -z-0 h-[520px] w-[520px] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
-          aria-hidden
-        >
-          <div className="h-full w-full rounded-full bg-primary/30" />
-        </motion.div>
+        <div className="absolute inset-0 z-0 overflow-hidden opacity-60">
+          <GradientWaves
+            horizonColor="#051216"
+            waveColor="#0ea5e9"
+            crestColor="#14b8a6"
+            speed={0.4}
+            amplitude={2.5}
+            waveScale={0.6}
+            waveRatio={0.9}
+            swell={35}
+            turbulence={20}
+            tilt={1.11}
+            zoom={1}
+            height={5.5}
+            fogDepth={15}
+            detail="medium"
+            brightness={1}
+            opacity={1}
+            mouseInteraction
+            parallaxStrength={0.5}
+            grain
+            grainIntensity={0.05}
+          />
+        </div>
+        
+        {/* Gradient overlay to fade bottom into background */}
+        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 
         <motion.div
           style={{ y: heroY, opacity: heroFade }}
-          className="relative mx-auto w-full max-w-5xl"
+          className="relative mx-auto w-full max-w-5xl z-10"
         >
           <motion.p
             variants={fadeUp}
