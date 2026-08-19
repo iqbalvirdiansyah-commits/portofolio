@@ -385,87 +385,78 @@ function Index() {
           Selected work
         </motion.h2>
 
-        <div className="mt-12 md:mt-24 flex flex-col">
+        <div className="mt-12 md:mt-24 pb-24 relative">
           {projects.map((p, i) => (
-            <div 
-              key={p.name} 
-              className="relative flex flex-col md:flex-row gap-8 md:gap-20 min-h-[90vh] md:min-h-[110vh] items-stretch border-t border-white/5 py-16 md:py-0"
+            <motion.div 
+              key={p.name}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="sticky flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full md:h-[600px] bg-background border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[2.5rem] p-6 sm:p-10 md:p-12 overflow-hidden"
+              style={{ 
+                top: `calc(10vh + ${i * 40}px)`, 
+                marginBottom: i === projects.length - 1 ? '0' : '40vh',
+                zIndex: i 
+              }}
             >
               
-              {/* Left: Scrolling Text */}
-              <div className="w-full md:w-1/2 flex flex-col justify-center order-2 md:order-1 md:py-32">
-                <motion.div
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="surface-card p-8 sm:p-10 rounded-[2rem] border border-white/5 shadow-xl"
-                >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h3 className="text-3xl text-foreground font-medium tracking-tight">{p.name}</h3>
-                      <p className="mt-2 text-xs uppercase tracking-[0.2em] text-primary/80">
-                        {p.role} &middot; {p.year}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-                    {p.desc}
+              {/* Left: Text Content */}
+              <div className="w-full md:w-[45%] flex flex-col justify-center order-2 md:order-1 h-full">
+                <div>
+                  <h3 className="text-4xl sm:text-5xl text-foreground font-medium tracking-tight">{p.name}</h3>
+                  <p className="mt-4 text-xs sm:text-sm uppercase tracking-[0.2em] text-primary/80">
+                    {p.role} &middot; {p.year}
                   </p>
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <a 
-                    href={p.href} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="mt-10 inline-flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group w-fit"
-                  >
-                    Kunjungi Web 
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </a>
-                </motion.div>
-              </div>
-
-              {/* Right: Sticky Image */}
-              <div className="w-full md:w-1/2 order-1 md:order-2">
-                <div className="md:sticky md:top-32 w-full h-[30vh] sm:h-[40vh] md:h-[60vh] rounded-[2rem] overflow-hidden ring-1 ring-primary/20 surface-card p-2 shadow-2xl">
-                  {p.image ? (
-                    <motion.a
-                      href={p.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group block relative h-full w-full rounded-2xl overflow-hidden"
-                      whileHover={{ scale: 0.98 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                    >
-                      <img
-                        src={p.image}
-                        alt={`${p.name} project screenshot`}
-                        loading="lazy"
-                        className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="hidden md:flex absolute inset-0 items-center justify-center bg-background/20 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
-                        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                          <ArrowUpRight className="h-6 w-6" />
-                        </span>
-                      </div>
-                    </motion.a>
-                  ) : (
-                    <div className="h-full w-full rounded-2xl bg-secondary/50" />
-                  )}
                 </div>
+                <p className="mt-6 sm:mt-8 text-sm sm:text-base leading-relaxed text-muted-foreground">
+                  {p.desc}
+                </p>
+                <div className="mt-8 flex flex-wrap gap-2 sm:gap-3">
+                  {p.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-border bg-secondary/50 px-3 py-1.5 text-xs text-muted-foreground"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                
+                <a 
+                  href={p.href} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="mt-10 sm:mt-12 inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors group w-fit"
+                >
+                  Kunjungi Web 
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </a>
               </div>
 
-            </div>
+              {/* Right: Image */}
+              <div className="w-full md:w-[55%] h-[300px] md:h-full order-1 md:order-2">
+                <a 
+                  href={p.href} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="group block relative h-full w-full rounded-[1.5rem] overflow-hidden ring-1 ring-primary/20"
+                >
+                  <img
+                    src={p.image}
+                    alt={`${p.name} project screenshot`}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="hidden md:flex absolute inset-0 items-center justify-center bg-background/20 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+                      <ArrowUpRight className="h-6 w-6" />
+                    </span>
+                  </div>
+                </a>
+              </div>
+
+            </motion.div>
           ))}
         </div>
       </section>
