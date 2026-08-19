@@ -391,7 +391,8 @@ function Index() {
             items={projects.map(p => ({
               image: p.image || '',
               label: p.name,
-              link: p.href
+              link: p.href,
+              description: `${p.role} — ${p.desc}`
             }))}
             defaultIndex={0}
             expandRatio={0.52}
