@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import AccordionGallery from "../components/AccordionGallery";
 import GradientText from "../components/GradientText";
 import GradientWaves from "../components/GradientWaves";
+import DecryptedText from "../components/DecryptedText";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -380,7 +381,14 @@ function Index() {
                   showBorder={false}
                   className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
                 >
-                  Iqbal Virdiansyah, Sistem Informasi Universitas Indonesia.
+                  <DecryptedText
+                    text="Iqbal Virdiansyah, Information Systems at Universitas Indonesia."
+                    animateOn="view"
+                    revealDirection="start"
+                    sequential={true}
+                    speed={30}
+                    maxIterations={15}
+                  />
                 </GradientText>
               </motion.div>
             <motion.p
