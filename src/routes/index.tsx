@@ -266,7 +266,7 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 
         <motion.div
-          style={{ y: heroY, opacity: heroFade }}
+          style={{ y: heroY }}
           className="relative mx-auto w-full max-w-5xl z-10"
         >
           <motion.p
