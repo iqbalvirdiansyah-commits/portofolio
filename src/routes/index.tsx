@@ -236,11 +236,11 @@ function Index() {
         ref={heroRef}
         className="relative flex min-h-screen items-center px-6"
       >
-        <div className="absolute inset-0 z-0 overflow-hidden opacity-60">
+        <div className="absolute inset-0 z-0 overflow-hidden opacity-100">
           <GradientWaves
-            horizonColor="#051216"
-            waveColor="#0ea5e9"
-            crestColor="#14b8a6"
+            horizonColor="#0a1a24"
+            waveColor="#38bdf8"
+            crestColor="#2dd4bf"
             speed={0.4}
             amplitude={2.5}
             waveScale={0.6}
