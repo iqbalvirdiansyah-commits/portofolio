@@ -235,7 +235,8 @@ function Index() {
       {/* HERO */}
       <section
         ref={heroRef}
-        className="relative flex min-h-screen items-center px-6"
+        id="about"
+        className="relative flex min-h-screen items-center px-6 pt-24 pb-12"
       >
         <div className="absolute inset-0 z-0 overflow-hidden opacity-100">
           <GradientWaves
@@ -266,66 +267,118 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 
         <motion.div
-          style={{ y: heroY }}
-          className="relative mx-auto w-full max-w-5xl z-10"
-        >
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.35em] text-primary"
+            style={{ y: heroY }}
+            className="relative mx-auto w-full max-w-5xl z-10"
           >
-            Jakarta &middot; Product Builder
-          </motion.p>
-
-          <h1 className="mt-6 max-w-3xl text-4xl sm:text-5xl md:text-7xl leading-[1.15] sm:leading-[1.05]">
-            {["Building", "digital products", "that feel alive."].map(
-              (line, i) => (
-                <motion.div
-                  key={line}
-                  custom={i + 1}
+            <div className="grid items-center gap-12 md:grid-cols-[minmax(0,340px)_1fr]">
+              <motion.div
+                custom={1}
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                whileHover={{ y: -6, rotate: -1 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                className="relative overflow-hidden rounded-3xl surface-card p-2 aspect-[4/5] md:aspect-auto md:h-[500px]"
+              >
+                <img
+                  src={"/iqbal.jpg"}
+                  alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
+                  loading="lazy"
+                  className="h-full w-full rounded-2xl object-cover object-top"
+                />
+                <div className="pointer-events-none absolute inset-2 rounded-2xl ring-1 ring-primary/20" />
+              </motion.div>
+  
+              <div>
+                <motion.p
+                  custom={2}
                   variants={fadeUp}
                   initial="hidden"
                   animate="show"
-                  className="block w-fit"
+                  className="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.35em] text-primary"
+                >
+                  Jakarta &middot; Product Builder
+                </motion.p>
+                
+                <motion.div
+                  custom={3}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  className="mt-6 w-fit"
                 >
                   <GradientText
                     colors={["#14B8A6", "#0EA5E9", "#14B8A6"]}
                     animationSpeed={8}
                     showBorder={false}
-                    className="!m-0 !justify-start"
+                    className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
                   >
-                    {line}
+                    <DecryptedText
+                      text="Iqbal Virdiansyah, Information Systems at Universitas Indonesia."
+                      animateOn="view"
+                      revealDirection="start"
+                      sequential={true}
+                      speed={30}
+                      maxIterations={15}
+                    />
                   </GradientText>
                 </motion.div>
-              ),
-            )}
-          </h1>
+                
+                <motion.p
+                  custom={4}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
+                >
+                  I am an Information Systems student at Universitas Indonesia with a deep passion for the intersection 
+of technology, design, and business. My primary focus is translating user needs into digital solutions that are 
+efficient, intuitive, and of high quality. My approach spans the entire development lifecycle—from initial research 
+and prototyping to the final launch—delivering tangible impact for users.
+                </motion.p>
+                
+                <motion.div
+                  custom={5}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  className="mt-8 flex flex-wrap gap-2"
+                >
+                  {stack.map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </motion.div>
 
-
-          <motion.div
-            custom={5}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <Magnetic className="inline-block">
-              <a
-                href="#work"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--glow-teal)]"
-              >
-                View works <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </Magnetic>
-            <a
-              href="#contact"
-              className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
-            >
-              Let's collaborate
-            </a>
+                <motion.div
+                  custom={6}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="show"
+                  className="mt-10 flex flex-wrap items-center gap-4"
+                >
+                  <Magnetic className="inline-block">
+                    <a
+                      href="#work"
+                      className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--glow-teal)]"
+                    >
+                      View works <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </Magnetic>
+                  <a
+                    href="#contact"
+                    className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+                  >
+                    Let's collaborate
+                  </a>
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
-        </motion.div>
 
         <motion.div
           animate={{ y: [0, 10, 0] }}
@@ -336,91 +389,6 @@ function Index() {
         </motion.div>
       </section>
 
-      {/* ABOUT */}
-      <section id="about" className="mx-auto max-w-5xl px-6 py-28">
-        <div className="grid items-center gap-12 md:grid-cols-[minmax(0,340px)_1fr]">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
-            whileHover={{ y: -6, rotate: -1 }}
-            transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            className="relative overflow-hidden rounded-3xl surface-card p-2 aspect-[4/5] md:aspect-auto"
-          >
-            <img
-              src={"/iqbal.jpg"}
-              alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
-              loading="lazy"
-              className="h-full w-full rounded-2xl object-cover"
-            />
-            <div className="pointer-events-none absolute inset-2 rounded-2xl ring-1 ring-primary/20" />
-          </motion.div>
-
-          <div>
-            <motion.h2
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="text-sm uppercase tracking-[0.35em] text-primary"
-            >
-              About
-            </motion.h2>
-              <motion.div
-                custom={1}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="mt-6 w-fit"
-              >
-                <GradientText
-                  colors={["#14B8A6", "#0EA5E9", "#14B8A6"]}
-                  animationSpeed={8}
-                  showBorder={false}
-                  className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
-                >
-                  <DecryptedText
-                    text="Iqbal Virdiansyah, Information Systems at Universitas Indonesia."
-                    animateOn="view"
-                    revealDirection="start"
-                    sequential={true}
-                    speed={30}
-                    maxIterations={15}
-                  />
-                </GradientText>
-              </motion.div>
-            <motion.p
-              custom={2}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
-            >
-              I am an Information Systems student at Universitas Indonesia with a deep passion for the intersection of technology, design, and business. My primary focus is translating user needs into digital solutions that are efficient, intuitive, and of high quality. My approach spans the entire development lifecycle—from initial research and prototyping to the final launch—delivering tangible impact for users.
-            </motion.p>
-            <motion.div
-              custom={4}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="mt-8 flex flex-wrap gap-2"
-            >
-              {stack.map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-muted-foreground"
-                >
-                  {s}
-                </span>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       {/* WORK */}
 
