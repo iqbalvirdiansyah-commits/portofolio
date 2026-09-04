@@ -265,10 +265,10 @@ function Index() {
 
         {/* Left Side: Edge-to-edge Photo */}
         <div 
-          className="absolute inset-y-0 left-0 w-full md:w-1/2 z-0"
+          className="absolute inset-y-0 left-0 w-full md:w-[45%] z-0"
           style={{ 
-            WebkitMaskImage: 'linear-gradient(to right, black 70%, transparent 100%)',
-            maskImage: 'linear-gradient(to right, black 70%, transparent 100%)'
+            WebkitMaskImage: 'linear-gradient(to right, black 40%, transparent 100%)',
+            maskImage: 'linear-gradient(to right, black 40%, transparent 100%)'
           }}
         >
           <img
@@ -280,7 +280,7 @@ function Index() {
         </div>
 
         {/* Right Side: Gradient overlay for text readability blending into the background */}
-        <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-1/2 z-0 bg-gradient-to-l from-background via-background/80 to-transparent" />
+        <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-[70%] z-0 bg-gradient-to-l from-background via-background/90 to-transparent" />
         
         {/* Mobile: Gradient overlay for text readability (bottom up) */}
         <div className="md:hidden pointer-events-none absolute inset-x-0 bottom-0 h-2/3 z-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
@@ -290,7 +290,7 @@ function Index() {
 
         <motion.div
             style={{ y: heroY }}
-            className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-2 px-6 -mt-16 md:-mt-24"
+            className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-[30%_70%] px-6 -mt-16 md:-mt-24"
           >
             <div className="hidden md:block"></div>
   
@@ -338,8 +338,8 @@ function Index() {
                 >
                   I am an Information Systems student at Universitas Indonesia with a deep passion for the intersection 
 of technology, design, and business. My primary focus is translating user needs into digital solutions that are 
-efficient, intuitive, and of high quality. My approach spans the entire development lifecycle—from initial research 
-and prototyping to the final launch—delivering tangible impact for users.
+efficient, intuitive, and of high quality. My approach spans the entire development lifecycle, from initial research 
+and prototyping to the final launch, delivering tangible impact for users.
                 </motion.p>
                 
                 <motion.div
