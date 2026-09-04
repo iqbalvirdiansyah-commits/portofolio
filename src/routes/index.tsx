@@ -270,26 +270,27 @@ function Index() {
             style={{ y: heroY }}
             className="relative mx-auto w-full max-w-5xl z-10"
           >
-            <div className="grid items-center gap-12 md:grid-cols-[minmax(0,340px)_1fr]">
+            <div className="grid items-stretch gap-6 md:grid-cols-2">
               <motion.div
                 custom={1}
                 variants={fadeUp}
                 initial="hidden"
                 animate="show"
-                whileHover={{ y: -6, rotate: -1 }}
+                whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                className="relative overflow-hidden rounded-3xl surface-card p-2 aspect-[4/5] md:aspect-auto md:h-[500px]"
+                className="relative overflow-hidden rounded-3xl aspect-[4/5] md:aspect-auto md:min-h-[500px] shadow-2xl"
               >
                 <img
                   src={"/iqbal.jpg"}
                   alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
                   loading="lazy"
-                  className="h-full w-full rounded-2xl object-cover object-top"
+                  className="h-full w-full object-cover object-top"
                 />
-                <div className="pointer-events-none absolute inset-2 rounded-2xl ring-1 ring-primary/20" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/50" />
+                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
               </motion.div>
   
-              <div>
+              <div className="flex flex-col justify-center rounded-3xl p-8 sm:p-10 bg-gradient-to-r from-background/20 to-background/90 backdrop-blur-md border border-white/5 shadow-xl">
                 <motion.p
                   custom={2}
                   variants={fadeUp}
