@@ -52,7 +52,7 @@ const projects = [
     role: "Backend Engineer",
     year: "2025",
     href: "https://munkey-zeta.vercel.app/",
-    desc: "A comprehensive platform for Model United Nations delegates featuring news, skill-sharing, and DiplomAI—an AI-driven debate simulator.",
+    desc: "A comprehensive platform for Model United Nations delegates featuring news, skill-sharing, and DiplomAI-an AI-driven debate simulator.",
     tags: ["Backend", "AI Simulation", "API Design"],
     image: "/munkey.png",
   },
@@ -94,7 +94,7 @@ const activities = [
   },
 ];
 
-const competitions = [
+const achievements = [
   {
     title: "Finalist RISTEK Hackathon",
     org: "RISTEK Fasilkom UI",
@@ -113,6 +113,57 @@ const stack = [
   "Product Design",
   "Business Development",
 ];
+
+function AchievementRow({ item, index }: { item: any; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div 
+      className="group relative border-b border-white/10 py-10 transition-colors hover:bg-white/[0.02]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative z-10 grid gap-8 md:grid-cols-[1fr_300px] items-center">
+        <div>
+          <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-primary">
+            <span>{item.year}</span>
+            <span className="h-1 w-1 rounded-full bg-primary/50" />
+            <span>{item.org}</span>
+          </div>
+          <h3 className="mt-4 text-3xl font-light text-foreground transition-transform duration-500 group-hover:translate-x-4">
+            {item.title}
+          </h3>
+          <p className="mt-2 text-sm text-muted-foreground uppercase tracking-widest">{item.role}</p>
+
+          <div 
+            className={`grid transition-all duration-500 ease-in-out ${
+              isHovered ? "grid-rows-[1fr] opacity-100 mt-6" : "grid-rows-[0fr] opacity-0 mt-0"
+            }`}
+          >
+            <div className="overflow-hidden">
+              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
+                {item.body}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden md:block">
+          <div 
+            className={`relative h-[200px] w-full overflow-hidden rounded-2xl transition-all duration-700 ease-out ${
+              isHovered ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-95 rotate-2"
+            }`}
+          >
+            {item.image && (
+              <img src={item.image} alt={item.title} className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" />
+            )}
+            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl pointer-events-none" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
 function Magnetic({
@@ -191,7 +242,7 @@ function Index() {
           </GradientText>
           
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-            {["about", "work", "activities", "competitions", "contact"].map((id) => (
+            {["about", "work", "activities", "achievements", "contact"].map((id) => (
               <a
                 key={id}
                 href={`#${id}`}
@@ -218,7 +269,7 @@ function Index() {
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-lg border-b border-border py-4 px-6 flex flex-col gap-4 shadow-xl"
           >
-            {["about", "work", "activities", "competitions", "contact"].map((id) => (
+            {["about", "work", "activities", "achievements", "contact"].map((id) => (
               <a
                 key={id}
                 href={`#${id}`}
@@ -415,7 +466,7 @@ and prototyping to the final launch, delivering tangible impact for users.
                 image: p.image || '',
                 label: p.name,
                 link: p.href,
-                description: `${p.role} — ${p.desc}`
+                description: `${p.role} - ${p.desc}`
               }))}
               defaultIndex={0}
               expandRatio={0.52}
@@ -490,10 +541,8 @@ and prototyping to the final launch, delivering tangible impact for users.
       </section>
 
       {/* ACTIVITIES - scrollytelling timeline */}
-      <ActivitiesSection />
-
-      {/* COMPETITIONS */}
-      <section id="competitions" className="mx-auto max-w-5xl px-6 pb-8">
+      <ActivitiesSection />      {/* ACHIEVEMENTS */}
+      <section id="achievements" className="mx-auto max-w-5xl px-6 pb-28 pt-10">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
@@ -501,40 +550,12 @@ and prototyping to the final launch, delivering tangible impact for users.
           viewport={{ once: true }}
           className="text-sm uppercase tracking-[0.35em] text-primary"
         >
-          Competitions
+          Achievements
         </motion.h2>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2">
-          {competitions.map((c, i) => (
-            <motion.div
-              key={c.title}
-              custom={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-60px" }}
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="rounded-2xl surface-card p-5 sm:p-7"
-            >
-              {c.image && (
-                <div className="mb-6 overflow-hidden rounded-xl ring-1 ring-primary/20">
-                  <img
-                    src={c.image}
-                    alt="Iqbal Virdiansyah presenting at the RISTEK Hackathon final, Fakultas Ilmu Komputer Universitas Indonesia"
-                    loading="lazy"
-                    className="h-52 w-full object-cover"
-                  />
-                </div>
-              )}
-              <Trophy className="h-5 w-5 text-primary" />
-              <h3 className="mt-4 text-xl text-foreground">{c.title}</h3>
-              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-primary/80">
-                {c.org} · {c.role} · {c.year}
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                {c.body}
-              </p>
-            </motion.div>
+
+        <div className="mt-12 flex flex-col border-t border-white/10">
+          {achievements.map((c, i) => (
+            <AchievementRow key={c.title} item={c} index={i} />
           ))}
         </div>
       </section>
