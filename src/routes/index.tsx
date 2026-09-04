@@ -119,46 +119,46 @@ function AchievementRow({ item, index }: { item: any; index: number }) {
 
   return (
     <div 
-      className="group relative border-b border-white/10 py-10 transition-colors hover:bg-white/[0.02]"
+      className="group relative border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative z-10 grid gap-8 md:grid-cols-[1fr_300px] items-center">
-        <div>
-          <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-primary">
-            <span>{item.year}</span>
-            <span className="h-1 w-1 rounded-full bg-primary/50" />
-            <span>{item.org}</span>
-          </div>
-          <h3 className="mt-4 text-3xl font-light text-foreground transition-transform duration-500 group-hover:translate-x-4">
-            {item.title}
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground uppercase tracking-widest">{item.role}</p>
+      {/* Teks Content */}
+      <div className="relative z-10 w-full md:w-[65%]">
+        <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-primary">
+          <span>{item.year}</span>
+          <span className="h-1 w-1 rounded-full bg-primary/50" />
+          <span>{item.org}</span>
+        </div>
+        <h3 className="mt-3 text-3xl font-light text-foreground transition-transform duration-500 group-hover:translate-x-2">
+          {item.title}
+        </h3>
+        <p className="mt-2 text-sm text-muted-foreground uppercase tracking-widest">{item.role}</p>
 
-          <div 
-            className={`grid transition-all duration-500 ease-in-out ${
-              isHovered ? "grid-rows-[1fr] opacity-100 mt-6" : "grid-rows-[0fr] opacity-0 mt-0"
-            }`}
-          >
-            <div className="overflow-hidden">
-              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
-                {item.body}
-              </p>
-            </div>
+        <div 
+          className={`grid transition-all duration-500 ease-in-out ${
+            isHovered ? "grid-rows-[1fr] opacity-100 mt-5" : "grid-rows-[0fr] opacity-0 mt-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
+              {item.body}
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="hidden md:block">
-          <div 
-            className={`relative h-[200px] w-full overflow-hidden rounded-2xl transition-all duration-700 ease-out ${
-              isHovered ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-95 rotate-2"
-            }`}
-          >
-            {item.image && (
-              <img src={item.image} alt={item.title} className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" />
-            )}
-            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl pointer-events-none" />
-          </div>
+      {/* Floating Image */}
+      <div className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 w-[320px] pointer-events-none z-20">
+        <div 
+          className={`relative h-[220px] w-full overflow-hidden rounded-2xl transition-all duration-700 ease-out origin-center shadow-2xl ${
+            isHovered ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-90 rotate-3"
+          }`}
+        >
+          {item.image && (
+            <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+          )}
+          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
         </div>
       </div>
     </div>
