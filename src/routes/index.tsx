@@ -364,8 +364,8 @@ function Index() {
                   className="mt-6 w-fit"
                 >
                   <GradientText
-                    colors={["#14B8A6", "#0EA5E9", "#14B8A6"]}
-                    animationSpeed={8}
+                    colors={["#14B8A6", "#ffffff", "#14B8A6", "#ffffff", "#14B8A6"]}
+                    animationSpeed={4}
                     showBorder={false}
                     className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
                   >
