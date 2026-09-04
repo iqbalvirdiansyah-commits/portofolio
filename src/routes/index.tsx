@@ -236,7 +236,7 @@ function Index() {
       <section
         ref={heroRef}
         id="about"
-        className="relative flex min-h-screen items-center px-6 pt-24 pb-12"
+        className="relative flex min-h-screen items-center pt-24 pb-12"
       >
         <div className="absolute inset-0 z-0 overflow-hidden opacity-100">
           <GradientWaves
@@ -262,35 +262,39 @@ function Index() {
             grainIntensity={0.05}
           />
         </div>
+
+        {/* Left Side: Edge-to-edge Photo */}
+        <div 
+          className="absolute inset-y-0 left-0 w-full md:w-1/2 z-0"
+          style={{ 
+            WebkitMaskImage: 'linear-gradient(to right, black 70%, transparent 100%)',
+            maskImage: 'linear-gradient(to right, black 70%, transparent 100%)'
+          }}
+        >
+          <img
+            src={"/iqbal.jpg"}
+            alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
+            loading="lazy"
+            className="h-full w-full object-cover object-top opacity-90"
+          />
+        </div>
+
+        {/* Right Side: Gradient overlay for text readability blending into the background */}
+        <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-1/2 z-0 bg-gradient-to-l from-background via-background/80 to-transparent" />
+        
+        {/* Mobile: Gradient overlay for text readability (bottom up) */}
+        <div className="md:hidden pointer-events-none absolute inset-x-0 bottom-0 h-2/3 z-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
         
         {/* Gradient overlay to fade bottom into background */}
         <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 
         <motion.div
             style={{ y: heroY }}
-            className="relative mx-auto w-full max-w-5xl z-10"
+            className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-2 px-6"
           >
-            <div className="grid items-stretch gap-6 md:grid-cols-2">
-              <motion.div
-                custom={1}
-                variants={fadeUp}
-                initial="hidden"
-                animate="show"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                className="relative overflow-hidden rounded-3xl aspect-[4/5] md:aspect-auto md:min-h-[500px] shadow-2xl"
-              >
-                <img
-                  src={"/iqbal.jpg"}
-                  alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
-                  loading="lazy"
-                  className="h-full w-full object-cover object-top"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/50" />
-                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
-              </motion.div>
+            <div className="hidden md:block"></div>
   
-              <div className="flex flex-col justify-center rounded-3xl p-8 sm:p-10 bg-gradient-to-r from-background/20 to-background/90 backdrop-blur-md border border-white/5 shadow-xl">
+            <div className="flex flex-col justify-center py-20 md:pl-10">
                 <motion.p
                   custom={2}
                   variants={fadeUp}
@@ -378,7 +382,6 @@ and prototyping to the final launch—delivering tangible impact for users.
                   </a>
                 </motion.div>
               </div>
-            </div>
           </motion.div>
 
         <motion.div
