@@ -275,7 +275,7 @@ function Index() {
             src={"/iqbal.jpg"}
             alt="Iqbal Virdiansyah, mahasiswa Sistem Informasi Universitas Indonesia"
             loading="lazy"
-            className="h-full w-full object-cover object-top opacity-90"
+            className="h-full w-full object-cover object-[center_30%] opacity-90"
           />
         </div>
 
@@ -290,7 +290,7 @@ function Index() {
 
         <motion.div
             style={{ y: heroY }}
-            className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-2 px-6"
+            className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-2 px-6 -mt-16 md:-mt-24"
           >
             <div className="hidden md:block"></div>
   
