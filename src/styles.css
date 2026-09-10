@@ -164,3 +164,13 @@
 @utility storm-bg {
   background: var(--gradient-storm);
 }
+
+.theme-creme {
+  --background: oklch(0.96 0.01 100); /* Creme */
+  --foreground: oklch(0.1 0 0); /* Dark */
+  --card: oklch(1 0 0); /* White */
+  --card-foreground: oklch(0.1 0 0);
+  --border: oklch(0 0 0 / 10%);
+  --muted-foreground: oklch(0.4 0 0);
+  --primary: oklch(0.91 0.2 120); /* Keep lime for primary accents, but maybe dark green? Let's use black for primary text or accents if needed */
+}

@@ -128,7 +128,7 @@ function AchievementRow({ item, index }: { item: any; index: number }) {
 
   return (
     <div 
-      className="group relative border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02]"
+      className="group relative border-b border-border py-8 transition-colors hover:bg-foreground/[0.02]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -167,7 +167,7 @@ function AchievementRow({ item, index }: { item: any; index: number }) {
           {item.image && (
             <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
           )}
-          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
+          <div className="absolute inset-0 ring-1 ring-inset ring-border rounded-2xl" />
         </div>
       </div>
     </div>
@@ -241,7 +241,7 @@ function ProjectCarousel() {
       </div>
 
       {/* Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-card">
+      <div className="relative overflow-hidden rounded-3xl border border-border bg-card">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentIndex}
@@ -274,7 +274,7 @@ function ProjectCarousel() {
                   href={p.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-1 shrink-0 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                  className="mt-1 shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-primary"
                 >
                   View <ArrowUpRight className="h-3 w-3" />
                 </a>
@@ -286,7 +286,7 @@ function ProjectCarousel() {
                 {p.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground"
+                    className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-xs text-muted-foreground"
                   >
                     {t}
                   </span>
@@ -299,14 +299,14 @@ function ProjectCarousel() {
         {/* Nav buttons */}
         <button
           onClick={prev}
-          className="absolute left-4 top-[calc(9/32*100%)] -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
+          className="absolute left-4 top-[calc(9/32*100%)] -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
           aria-label="Previous project"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button
           onClick={next}
-          className="absolute right-4 top-[calc(9/32*100%)] -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
+          className="absolute right-4 top-[calc(9/32*100%)] -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
           aria-label="Next project"
         >
           <ChevronRight className="h-5 w-5" />
@@ -323,7 +323,7 @@ function ProjectCarousel() {
             className={`rounded-full transition-all duration-300 ${
               i === currentIndex
                 ? "bg-primary w-6 h-2"
-                : "bg-white/20 w-2 h-2 hover:bg-white/40"
+                : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
             }`}
           />
         ))}
@@ -347,7 +347,7 @@ function ActivityCard({ item, index, total, scrollYProgress }: {
   return (
     <motion.div
       style={{ y, opacity, scale, top: index * 24 }}
-      className="sticky rounded-3xl border border-white/10 bg-card p-8 sm:p-10 shadow-[0_-12px_40px_-10px_rgba(0,0,0,0.5)]"
+      className="sticky rounded-3xl border border-border bg-card p-8 sm:p-10 shadow-[0_-12px_40px_-10px_rgba(0,0,0,0.5)]"
     >
       <div className="flex items-start justify-between">
         <span className="text-6xl font-bold leading-none text-primary/15 select-none">{item.num}</span>
@@ -358,7 +358,7 @@ function ActivityCard({ item, index, total, scrollYProgress }: {
       <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground">{item.body}</p>
       <div className="mt-6 flex flex-wrap gap-2">
         {item.tags.map((t: string) => (
-          <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
+          <span key={t} className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-xs text-muted-foreground">
             {t}
           </span>
         ))}
@@ -434,7 +434,7 @@ function Index() {
       <header
         className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "bg-background/90 backdrop-blur-md border-b border-white/10 shadow-sm"
+            ? "bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
             : "bg-transparent"
         }`}
       >
@@ -473,7 +473,7 @@ function Index() {
           <motion.nav
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-lg border-b border-white/10 py-4 px-6 flex flex-col gap-4 shadow-xl"
+            className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-lg border-b border-border py-4 px-6 flex flex-col gap-4 shadow-xl"
           >
             {["about", "work", "activities", "achievements", "contact"].map((id) => (
               <a
@@ -587,7 +587,7 @@ function Index() {
                 className="mt-8 flex flex-wrap gap-2"
               >
                 {stack.map((s) => (
-                  <span key={s} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
+                  <span key={s} className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-xs text-muted-foreground">
                     {s}
                   </span>
                 ))}
@@ -624,71 +624,79 @@ function Index() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* LAYER 2: CONTENT — naik dari bawah menutupi Hero       */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <div className="relative z-10 rounded-t-[2.5rem] bg-background shadow-[0_-30px_80px_-20px_rgba(0,0,0,0.8)]">
+      <div className="relative z-10 rounded-t-[2.5rem] shadow-[0_-30px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden bg-background">
 
-        {/* WORK */}
-        <section id="work" className="mx-auto max-w-5xl px-6 py-28">
-          <ProjectCarousel />
-        </section>
+        {/* WORK (Creme) */}
+        <div className="theme-creme bg-background text-foreground w-full transition-colors duration-500">
+          <section id="work" className="mx-auto max-w-5xl px-6 py-28">
+            <ProjectCarousel />
+          </section>
+        </div>
 
-        {/* ACTIVITIES */}
-        <StackedActivities />
+        {/* ACTIVITIES (Hitam) */}
+        <div className="bg-background text-foreground w-full transition-colors duration-500">
+          <StackedActivities />
+        </div>
 
-        {/* ACHIEVEMENTS */}
-        <section id="achievements" className="mx-auto max-w-5xl px-6 pb-28 pt-10">
-          <motion.h2
-            variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
-            className="text-sm uppercase tracking-[0.35em] text-primary"
-          >
-            Achievements
-          </motion.h2>
-          <div className="mt-12 flex flex-col border-t border-white/10">
-            {achievements.map((c, i) => (
-              <AchievementRow key={c.title} item={c} index={i} />
-            ))}
-          </div>
-        </section>
-
-        {/* CONTACT */}
-        <section id="contact" className="mx-auto max-w-5xl px-6 pb-28 pt-8">
-          <motion.div
-            variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }}
-            className="rounded-3xl surface-card px-5 py-10 sm:px-8 sm:py-14 text-center"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl text-gradient-teal">
-              Got an idea? Let's build it.
-            </h2>
-            <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground">
-              Open for product collaborations, sponsorships, and web projects.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-              <Magnetic className="inline-block">
-                <a
-                  href="mailto:iqbalvirdiansyah@gmail.com"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
-                >
-                  <Mail className="h-4 w-4" /> iqbalvirdiansyah@gmail.com
-                </a>
-              </Magnetic>
-              {[
-                { icon: Github, href: "https://github.com", label: "GitHub" },
-                { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-              ].map(({ icon: Icon, href, label }) => (
-                <Magnetic key={label} className="inline-block">
-                  <a
-                    href={href} target="_blank" rel="noreferrer" aria-label={label}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </a>
-                </Magnetic>
+        {/* ACHIEVEMENTS (Creme) */}
+        <div className="theme-creme bg-background text-foreground w-full transition-colors duration-500">
+          <section id="achievements" className="mx-auto max-w-5xl px-6 py-28">
+            <motion.h2
+              variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+              className="text-sm uppercase tracking-[0.35em] text-primary"
+            >
+              Achievements
+            </motion.h2>
+            <div className="mt-12 flex flex-col border-t border-border">
+              {achievements.map((c, i) => (
+                <AchievementRow key={c.title} item={c} index={i} />
               ))}
             </div>
-          </motion.div>
-          <p className="mt-10 text-center text-xs tracking-[0.2em] text-muted-foreground">
-            © {new Date().getFullYear()} IQBAL VIRDIANSYAH
-          </p>
-        </section>
+          </section>
+        </div>
+
+        {/* CONTACT (Hitam) */}
+        <div className="bg-background text-foreground w-full transition-colors duration-500">
+          <section id="contact" className="mx-auto max-w-5xl px-6 pb-28 pt-16">
+            <motion.div
+              variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }}
+              className="rounded-3xl surface-card px-5 py-10 sm:px-8 sm:py-14 text-center"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl text-gradient-teal">
+                Got an idea? Let's build it.
+              </h2>
+              <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground">
+                Open for product collaborations, sponsorships, and web projects.
+              </p>
+              <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+                <Magnetic className="inline-block">
+                  <a
+                    href="mailto:iqbalvirdiansyah@gmail.com"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
+                  >
+                    <Mail className="h-4 w-4" /> iqbalvirdiansyah@gmail.com
+                  </a>
+                </Magnetic>
+                {[
+                  { icon: Github, href: "https://github.com", label: "GitHub" },
+                  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+                ].map(({ icon: Icon, href, label }) => (
+                  <Magnetic key={label} className="inline-block">
+                    <a
+                      href={href} target="_blank" rel="noreferrer" aria-label={label}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  </Magnetic>
+                ))}
+              </div>
+            </motion.div>
+            <p className="mt-16 text-center text-xs tracking-[0.2em] text-muted-foreground">
+              © {new Date().getFullYear()} IQBAL VIRDIANSYAH
+            </p>
+          </section>
+        </div>
       </div>
     </main>
   );
