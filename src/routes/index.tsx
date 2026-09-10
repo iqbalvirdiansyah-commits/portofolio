@@ -336,73 +336,75 @@ function ProjectCarousel() {
   );
 }
 
-function ActivityCard({ item, index, total, scrollYProgress }: {
-  item: any;
-  index: number;
-  total: number;
-  scrollYProgress: any;
-}) {
-  const start = index / (total + 1);
-  const end = (index + 1) / (total + 1);
-  const y = useTransform(scrollYProgress, [start, end], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [start, Math.min(end + 0.05, 1)], [1, index === total - 1 ? 1 : 0.4]);
-  const scale = useTransform(scrollYProgress, [start, end], [1, index === total - 1 ? 1 : 0.97]);
-
-  return (
-    <motion.div
-      style={{ scale, opacity, y, top: `calc(${index * 1.5}rem)` }}
-      className="absolute inset-x-0 origin-top rounded-3xl border border-border surface-card p-8 sm:p-12 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
-    >
-      <div className="flex flex-col sm:flex-row justify-between items-start gap-6 sm:gap-8">
-        <div>
-          <span className="text-5xl sm:text-7xl font-display font-light text-foreground/10">{item.num}</span>
-        </div>
-        <div>
-          <span className="text-xs uppercase tracking-widest text-primary">{item.year}</span>
-        </div>
-      </div>
-      <h3 className="mt-4 text-2xl sm:text-3xl font-light text-foreground">{item.title}</h3>
-      <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{item.role}</p>
-      <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground">{item.body}</p>
-      <div className="mt-6 flex flex-wrap gap-2">
-        {item.tags.map((t: string) => (
-          <span key={t} className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-xs text-muted-foreground">
-            {t}
-          </span>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-function StackedActivities() {
+function ActivitiesTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start center", "end end"],
   });
+  
+  const scaleY = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
-    <section id="activities" ref={containerRef} className="relative h-[250vh]">
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center mx-auto max-w-5xl px-6 py-20">
-        <motion.h2
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="text-sm uppercase tracking-[0.35em] text-primary mb-12"
-        >
-          Activities
-        </motion.h2>
+    <section id="activities" ref={containerRef} className="mx-auto max-w-5xl px-6 py-28 relative">
+      <motion.h2
+        variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
+        className="text-sm uppercase tracking-[0.35em] text-primary text-center md:text-left mb-20"
+      >
+        Activities
+      </motion.h2>
+
+      <div className="relative mx-auto max-w-4xl">
+        {/* Center line (background) */}
+        <div className="absolute left-[19px] md:left-1/2 top-4 bottom-0 w-[2px] bg-border md:-translate-x-1/2" />
         
-        <div className="relative w-full flex-1 max-h-[600px]">
-          {activities.map((a, i) => (
-            <ActivityCard key={a.title} item={a} index={i} total={activities.length} scrollYProgress={scrollYProgress} />
-          ))}
+        {/* Animated line (foreground) */}
+        <motion.div 
+           style={{ scaleY, transformOrigin: 'top' }}
+           className="absolute left-[19px] md:left-1/2 top-4 bottom-0 w-[2px] bg-primary md:-translate-x-1/2 z-10" 
+        />
+
+        <div className="space-y-16 sm:space-y-24">
+          {activities.map((item, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className={`relative flex flex-col md:flex-row items-center justify-between w-full ${isEven ? 'md:flex-row-reverse' : ''}`}
+              >
+                 {/* Center Dot */}
+                 <div className="absolute left-[19px] md:left-1/2 top-8 w-4 h-4 rounded-full bg-background border-2 border-primary -translate-x-1/2 z-20 shadow-[0_0_15px_rgba(200,255,0,0.5)]" />
+                 
+                 {/* Empty space for alternating layout on desktop */}
+                 <div className="hidden md:block w-[45%]" />
+                 
+                 {/* Content */}
+                 <div className="w-full pl-16 md:pl-0 md:w-[45%]">
+                    <div className="group relative p-8 rounded-3xl border border-border surface-card transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_30px_-10px_rgba(200,255,0,0.15)] hover:-translate-y-1">
+                       <span className="text-xs font-mono tracking-widest text-primary">{item.year}</span>
+                       <h3 className="mt-3 text-2xl font-light text-foreground">{item.title}</h3>
+                       <p className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">{item.role}</p>
+                       <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                       <div className="mt-6 flex flex-wrap gap-2">
+                         {item.tags.map((t: string) => (
+                           <span key={t} className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-[10px] text-muted-foreground">
+                             {t}
+                           </span>
+                         ))}
+                       </div>
+                    </div>
+                 </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 
@@ -434,7 +436,7 @@ function Index() {
   const heroScale = useTransform(heroProgress, [0, 1], [1, 0.94]);
 
   return (
-    <main className="relative storm-bg overflow-x-hidden">
+    <main className="relative storm-bg">
       {/* Progress bar */}
       <motion.div
         style={{ scaleX: progress }}
@@ -501,141 +503,142 @@ function Index() {
       </header>
 
       {/* ═══════════════════════════════════════ */}
-      {/* LAYER 1: HERO — sticky behind content  */}
+      {/* LAYER 1: HERO — FIXED IN BACKGROUND     */}
       {/* ═══════════════════════════════════════ */}
-      <div ref={heroRef} className="relative h-[150vh]">
-        <motion.section
-          id="about"
-          style={{ opacity: heroOpacity, scale: heroScale }}
-          className="sticky top-0 h-screen flex items-center overflow-hidden"
+      <motion.section
+        id="about"
+        style={{ opacity: heroOpacity, scale: heroScale }}
+        className="fixed inset-0 z-0 h-screen w-full flex items-center overflow-hidden"
+      >
+        {/* GradientWaves — white on black */}
+        <div className="absolute inset-0 z-0">
+          <GradientWaves
+            horizonColor="#000000"
+            waveColor="#999999"
+            crestColor="#ffffff"
+            speed={0.3}
+            amplitude={2.0}
+            waveScale={0.5}
+            waveRatio={0.9}
+            swell={30}
+            turbulence={18}
+            tilt={1.1}
+            zoom={1}
+            height={5.5}
+            fogDepth={18}
+            detail="medium"
+            brightness={0.85}
+            opacity={1}
+            mouseInteraction
+            parallaxStrength={0.4}
+            grain
+            grainIntensity={0.04}
+          />
+        </div>
+
+        {/* Bottom fade into content layer */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-10 bg-gradient-to-t from-background to-transparent" />
+
+        {/* Left photo */}
+        <div
+          className="absolute inset-y-0 left-0 w-full md:w-[45%] z-0"
+          style={{
+            WebkitMaskImage: "linear-gradient(to right, black 40%, transparent 100%)",
+            maskImage: "linear-gradient(to right, black 40%, transparent 100%)",
+          }}
         >
-          {/* GradientWaves — white on black */}
-          <div className="absolute inset-0 z-0">
-            <GradientWaves
-              horizonColor="#000000"
-              waveColor="#999999"
-              crestColor="#ffffff"
-              speed={0.3}
-              amplitude={2.0}
-              waveScale={0.5}
-              waveRatio={0.9}
-              swell={30}
-              turbulence={18}
-              tilt={1.1}
-              zoom={1}
-              height={5.5}
-              fogDepth={18}
-              detail="medium"
-              brightness={0.85}
-              opacity={1}
-              mouseInteraction
-              parallaxStrength={0.4}
-              grain
-              grainIntensity={0.04}
-            />
-          </div>
+          <img
+            src="/iqbal.jpg"
+            alt="Iqbal Virdiansyah"
+            loading="eager"
+            className="h-full w-full object-cover object-[center_30%] opacity-70"
+          />
+        </div>
 
-          {/* Bottom fade into content layer */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-10 bg-gradient-to-t from-background to-transparent" />
+        {/* Right readability overlay */}
+        <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-[70%] z-0 bg-gradient-to-l from-background via-background/80 to-transparent" />
+        <div className="md:hidden pointer-events-none absolute inset-x-0 bottom-0 h-2/3 z-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
 
-          {/* Left photo */}
-          <div
-            className="absolute inset-y-0 left-0 w-full md:w-[45%] z-0"
-            style={{
-              WebkitMaskImage: "linear-gradient(to right, black 40%, transparent 100%)",
-              maskImage: "linear-gradient(to right, black 40%, transparent 100%)",
-            }}
-          >
-            <img
-              src="/iqbal.jpg"
-              alt="Iqbal Virdiansyah"
-              loading="eager"
-              className="h-full w-full object-cover object-[center_30%] opacity-70"
-            />
-          </div>
+        {/* Content */}
+        <div className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-[30%_70%] px-6 -mt-20 md:-mt-24">
+          <div className="hidden md:block" />
+          <div className="flex flex-col justify-center py-20 md:pl-10">
+            <motion.p custom={1} variants={fadeUp} initial="hidden" animate="show"
+              className="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.35em] text-primary"
+            >
+              Jakarta &middot; Product Builder
+            </motion.p>
 
-          {/* Right readability overlay */}
-          <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-[70%] z-0 bg-gradient-to-l from-background via-background/80 to-transparent" />
-          <div className="md:hidden pointer-events-none absolute inset-x-0 bottom-0 h-2/3 z-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
-
-          {/* Content */}
-          <div className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-[30%_70%] px-6 -mt-20 md:-mt-24">
-            <div className="hidden md:block" />
-            <div className="flex flex-col justify-center py-20 md:pl-10">
-              <motion.p custom={1} variants={fadeUp} initial="hidden" animate="show"
-                className="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.35em] text-primary"
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="show" className="mt-6 w-fit">
+              <GradientText
+                colors={["#c8ff00", "#ffffff", "#c8ff00", "#ffffff", "#c8ff00"]}
+                animationSpeed={4}
+                showBorder={false}
+                className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
               >
-                Jakarta &middot; Product Builder
-              </motion.p>
+                <DecryptedText
+                  text="Iqbal Virdiansyah, Information Systems at Universitas Indonesia."
+                  animateOn="view"
+                  revealDirection="start"
+                  sequential={true}
+                  speed={30}
+                  maxIterations={15}
+                />
+              </GradientText>
+            </motion.div>
 
-              <motion.div custom={2} variants={fadeUp} initial="hidden" animate="show" className="mt-6 w-fit">
-                <GradientText
-                  colors={["#c8ff00", "#ffffff", "#c8ff00", "#ffffff", "#c8ff00"]}
-                  animationSpeed={4}
-                  showBorder={false}
-                  className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
+            <motion.p custom={3} variants={fadeUp} initial="hidden" animate="show"
+              className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
+            >
+              I am an Information Systems student at Universitas Indonesia with a deep passion for the intersection
+              of technology, design, and business. My primary focus is translating user needs into digital solutions
+              that are efficient, intuitive, and of high quality.
+            </motion.p>
+
+            <motion.div custom={4} variants={fadeUp} initial="hidden" animate="show"
+              className="mt-8 flex flex-wrap gap-2"
+            >
+              {stack.map((s) => (
+                <span key={s} className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-xs text-muted-foreground">
+                  {s}
+                </span>
+              ))}
+            </motion.div>
+
+            <motion.div custom={5} variants={fadeUp} initial="hidden" animate="show"
+              className="mt-10 flex flex-wrap items-center gap-4"
+            >
+              <Magnetic className="inline-block">
+                <a
+                  href="#work"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--glow-lime)]"
                 >
-                  <DecryptedText
-                    text="Iqbal Virdiansyah, Information Systems at Universitas Indonesia."
-                    animateOn="view"
-                    revealDirection="start"
-                    sequential={true}
-                    speed={30}
-                    maxIterations={15}
-                  />
-                </GradientText>
-              </motion.div>
-
-              <motion.p custom={3} variants={fadeUp} initial="hidden" animate="show"
-                className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
-              >
-                I am an Information Systems student at Universitas Indonesia with a deep passion for the intersection
-                of technology, design, and business. My primary focus is translating user needs into digital solutions
-                that are efficient, intuitive, and of high quality.
-              </motion.p>
-
-              <motion.div custom={4} variants={fadeUp} initial="hidden" animate="show"
-                className="mt-8 flex flex-wrap gap-2"
-              >
-                {stack.map((s) => (
-                  <span key={s} className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-xs text-muted-foreground">
-                    {s}
-                  </span>
-                ))}
-              </motion.div>
-
-              <motion.div custom={5} variants={fadeUp} initial="hidden" animate="show"
-                className="mt-10 flex flex-wrap items-center gap-4"
-              >
-                <Magnetic className="inline-block">
-                  <a
-                    href="#work"
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--glow-lime)]"
-                  >
-                    View works <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </Magnetic>
-                <a href="#contact" className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline">
-                  Let's collaborate
+                  View works <ArrowUpRight className="h-4 w-4" />
                 </a>
-              </motion.div>
-            </div>
+              </Magnetic>
+              <a href="#contact" className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline">
+                Let's collaborate
+              </a>
+            </motion.div>
           </div>
+        </div>
 
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-muted-foreground z-10"
-          >
-            SCROLL
-          </motion.div>
-        </motion.section>
-      </div>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-muted-foreground z-10"
+        >
+          SCROLL
+        </motion.div>
+      </motion.section>
+
+      {/* Empty div to capture the scroll progress for hero */}
+      <div ref={heroRef} className="absolute inset-x-0 top-0 h-screen pointer-events-none" />
 
       {/* ═══════════════════════════════════════════════════════ */}
       {/* LAYER 2: CONTENT — naik dari bawah menutupi Hero       */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <div className="relative z-10 -mt-[50vh] rounded-t-[2.5rem] shadow-[0_-40px_100px_-10px_rgba(0,0,0,0.9)] overflow-hidden bg-background">
+      <div className="relative z-10 mt-[100vh] rounded-t-[2.5rem] shadow-[0_-40px_100px_-10px_rgba(0,0,0,0.9)] overflow-hidden bg-background">
 
         {/* WORK (Creme) */}
         <div className="theme-creme bg-background text-foreground w-full transition-colors duration-500">
@@ -646,7 +649,7 @@ function Index() {
 
         {/* ACTIVITIES (Hitam) */}
         <div className="bg-background text-foreground w-full transition-colors duration-500">
-          <StackedActivities />
+          <ActivitiesTimeline />
         </div>
 
         {/* ACHIEVEMENTS (Creme) */}
