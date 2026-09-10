@@ -250,19 +250,23 @@ function ProjectCarousel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: direction * -80 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col md:flex-row"
           >
-            {/* Image */}
-            <div className="relative aspect-[16/9] w-full overflow-hidden">
+            {/* Image Side */}
+            <div className="relative w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:min-h-[360px] overflow-hidden">
               <img
                 src={p.image}
                 alt={p.name}
-                className="h-full w-full object-cover object-top"
+                className="absolute inset-0 h-full w-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+              {/* Overlay fade for mobile only */}
+              <div className="md:hidden absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+              {/* Overlay fade for desktop */}
+              <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card" />
             </div>
 
-            {/* Info */}
-            <div className="p-8 sm:p-10">
+            {/* Info Side */}
+            <div className="w-full md:w-3/5 p-8 sm:p-10 flex flex-col justify-center">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-[0.3em] text-primary">
@@ -279,10 +283,10 @@ function ProjectCarousel() {
                   View <ArrowUpRight className="h-3 w-3" />
                 </a>
               </div>
-              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
                 {p.desc}
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-8 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
                   <span
                     key={t}
@@ -299,14 +303,14 @@ function ProjectCarousel() {
         {/* Nav buttons */}
         <button
           onClick={prev}
-          className="absolute left-4 top-[calc(9/32*100%)] -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
           aria-label="Previous project"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button
           onClick={next}
-          className="absolute right-4 top-[calc(9/32*100%)] -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
           aria-label="Next project"
         >
           <ChevronRight className="h-5 w-5" />
@@ -346,12 +350,16 @@ function ActivityCard({ item, index, total, scrollYProgress }: {
 
   return (
     <motion.div
-      style={{ y, opacity, scale, top: index * 24 }}
-      className="sticky rounded-3xl border border-border bg-card p-8 sm:p-10 shadow-[0_-12px_40px_-10px_rgba(0,0,0,0.5)]"
+      style={{ scale, opacity, y, top: `calc(${index * 1.5}rem)` }}
+      className="absolute inset-x-0 origin-top rounded-3xl border border-border surface-card p-8 sm:p-12 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
     >
-      <div className="flex items-start justify-between">
-        <span className="text-6xl font-bold leading-none text-primary/15 select-none">{item.num}</span>
-        <span className="text-xs uppercase tracking-widest text-primary">{item.year}</span>
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-6 sm:gap-8">
+        <div>
+          <span className="text-5xl sm:text-7xl font-display font-light text-foreground/10">{item.num}</span>
+        </div>
+        <div>
+          <span className="text-xs uppercase tracking-widest text-primary">{item.year}</span>
+        </div>
       </div>
       <h3 className="mt-4 text-2xl sm:text-3xl font-light text-foreground">{item.title}</h3>
       <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{item.role}</p>
@@ -371,24 +379,27 @@ function StackedActivities() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 20%", "end 80%"],
+    offset: ["start start", "end end"],
   });
 
   return (
-    <section id="activities" className="mx-auto max-w-5xl px-6 py-28">
-      <motion.h2
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="text-sm uppercase tracking-[0.35em] text-primary mb-12"
-      >
-        Activities
-      </motion.h2>
-      <div ref={containerRef} className="relative flex flex-col gap-6" style={{ paddingBottom: `${activities.length * 24}px` }}>
-        {activities.map((a, i) => (
-          <ActivityCard key={a.title} item={a} index={i} total={activities.length} scrollYProgress={scrollYProgress} />
-        ))}
+    <section id="activities" ref={containerRef} className="relative h-[250vh]">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center mx-auto max-w-5xl px-6 py-20">
+        <motion.h2
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-sm uppercase tracking-[0.35em] text-primary mb-12"
+        >
+          Activities
+        </motion.h2>
+        
+        <div className="relative w-full flex-1 max-h-[600px]">
+          {activities.map((a, i) => (
+            <ActivityCard key={a.title} item={a} index={i} total={activities.length} scrollYProgress={scrollYProgress} />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -492,7 +503,7 @@ function Index() {
       {/* ═══════════════════════════════════════ */}
       {/* LAYER 1: HERO — sticky behind content  */}
       {/* ═══════════════════════════════════════ */}
-      <div ref={heroRef} className="relative h-[200vh]">
+      <div ref={heroRef} className="relative h-[150vh]">
         <motion.section
           id="about"
           style={{ opacity: heroOpacity, scale: heroScale }}
@@ -624,7 +635,7 @@ function Index() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* LAYER 2: CONTENT — naik dari bawah menutupi Hero       */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <div className="relative z-10 rounded-t-[2.5rem] shadow-[0_-30px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden bg-background">
+      <div className="relative z-10 -mt-[50vh] rounded-t-[2.5rem] shadow-[0_-40px_100px_-10px_rgba(0,0,0,0.9)] overflow-hidden bg-background">
 
         {/* WORK (Creme) */}
         <div className="theme-creme bg-background text-foreground w-full transition-colors duration-500">
