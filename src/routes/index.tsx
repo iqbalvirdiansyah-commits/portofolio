@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import GradientText from "../components/GradientText";
 import GradientWaves from "../components/GradientWaves";
 import DecryptedText from "../components/DecryptedText";
+import LightRays from "../components/LightRays";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -648,8 +649,23 @@ function Index() {
         </div>
 
         {/* ACTIVITIES (Hitam) */}
-        <div className="bg-background text-foreground w-full transition-colors duration-500">
-          <ActivitiesTimeline />
+        <div className="relative bg-background text-foreground w-full transition-colors duration-500 overflow-hidden">
+          <div className="absolute inset-0 z-0 opacity-50">
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#c8ff00"
+              raysSpeed={1.5}
+              lightSpread={0.8}
+              rayLength={1.2}
+              followMouse={true}
+              mouseInfluence={0.1}
+              noiseAmount={0.1}
+              distortion={0.05}
+            />
+          </div>
+          <div className="relative z-10">
+            <ActivitiesTimeline />
+          </div>
         </div>
 
         {/* ACHIEVEMENTS (Creme) */}
