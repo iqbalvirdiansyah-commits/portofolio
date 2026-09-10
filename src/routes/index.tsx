@@ -385,17 +385,14 @@ function ActivitiesTimeline() {
                  
                  {/* Content */}
                  <div className="w-full pl-16 md:pl-0 md:w-[45%]">
-                    <div className="group relative p-8 rounded-3xl border border-primary/30 bg-primary/[0.03] backdrop-blur-sm transition-all duration-500 hover:border-primary/70 hover:bg-primary/[0.08] hover:shadow-[0_0_40px_-10px_rgba(200,255,0,0.25)] hover:-translate-y-1 overflow-hidden">
-                       {/* Subtle inner top highlight */}
-                       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                       
-                       <span className="text-xs font-mono tracking-widest text-primary">{item.year}</span>
-                       <h3 className="mt-3 text-2xl font-light text-foreground">{item.title}</h3>
-                       <p className="mt-1 text-[10px] uppercase tracking-widest text-primary/70">{item.role}</p>
-                       <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                    <div className="group relative p-8 rounded-3xl border border-primary bg-primary transition-all duration-500 hover:shadow-xl hover:-translate-y-1 overflow-hidden">
+                       <span className="text-xs font-mono tracking-widest text-black/70">{item.year}</span>
+                       <h3 className="mt-3 text-2xl font-semibold text-black">{item.title}</h3>
+                       <p className="mt-1 text-[10px] uppercase tracking-widest text-black/60">{item.role}</p>
+                       <p className="mt-5 text-sm leading-relaxed text-black/80">{item.body}</p>
                        <div className="mt-6 flex flex-wrap gap-2">
                          {item.tags.map((t: string) => (
-                           <span key={t} className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] text-primary">
+                           <span key={t} className="rounded-full border border-black/20 bg-black/10 px-3 py-1 text-[10px] font-medium text-black">
                              {t}
                            </span>
                          ))}
