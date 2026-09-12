@@ -514,14 +514,14 @@ function Index() {
         className="fixed inset-0 z-0 h-screen w-full flex items-center overflow-hidden bg-background"
       >
         
-        {/* Center Content - Quote on left & Socials on right */}
-        <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 z-20 pointer-events-none mt-10 md:mt-0">
-           <div className="w-full max-w-7xl mx-auto flex justify-between items-center">
+        {/* Top Content - Quote on top-left & Socials on top-right */}
+        <div className="absolute top-24 md:top-32 left-0 w-full px-6 md:px-12 z-30 pointer-events-none">
+           <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
               
               {/* Left Quote */}
-              <div className="relative max-w-[240px] md:max-w-[360px] pointer-events-auto mt-0 md:-mt-24 z-30 mix-blend-difference text-white">
+              <div className="relative max-w-[240px] md:max-w-[320px] pointer-events-auto mix-blend-difference text-white">
                  <div className="absolute -top-8 -left-4 text-7xl md:text-8xl font-serif leading-none opacity-40">"</div>
-                 <h2 className="text-sm md:text-2xl font-bold uppercase leading-relaxed mt-2 relative z-10">
+                 <h2 className="text-sm md:text-xl font-bold uppercase leading-relaxed mt-2 relative z-10">
                    DO OR DO NOT, THERE IS NO TRY.
                  </h2>
                  <p className="mt-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] relative z-10">- Master Yoda</p>
@@ -537,7 +537,7 @@ function Index() {
               </div>
 
               {/* Right Socials */}
-              <div className="hidden md:flex flex-col gap-5 pointer-events-auto z-30 mix-blend-difference text-white mt-0 md:-mt-24 items-end">
+              <div className="hidden md:flex flex-col gap-4 pointer-events-auto mix-blend-difference text-white items-end">
                  {[
                    { icon: Github, href: "https://github.com", label: "GitHub" },
                    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
@@ -579,9 +579,6 @@ function Index() {
         <div className="absolute bottom-6 md:bottom-10 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden px-4">
            <h1 
              className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap"
-             style={{ 
-               WebkitTextStroke: '2px black'
-             }}
            >
              IQBAL VIRDIANSYAH
            </h1>
