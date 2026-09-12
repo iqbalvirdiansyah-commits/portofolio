@@ -411,6 +411,7 @@ function ActivitiesTimeline() {
 
 function Index() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -472,13 +473,18 @@ function Index() {
                 {id}
               </a>
             ))}
+            <button onClick={() => setIsResumeOpen(true)} className="flex items-center gap-2 hover:text-primary transition-colors text-foreground ml-4">
+               <span className="text-xs font-bold uppercase tracking-widest">Resume</span>
+               <Menu className="w-4 h-4" />
+            </button>
           </nav>
 
           <button
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground flex items-center gap-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
+            <span className="text-[10px] font-bold uppercase tracking-widest">Menu</span>
             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -499,6 +505,9 @@ function Index() {
                 {id}
               </a>
             ))}
+            <button onClick={() => { setIsMenuOpen(false); setIsResumeOpen(true); }} className="text-sm font-medium uppercase tracking-wider text-primary text-left mt-2 flex items-center gap-2">
+               Resume <Menu className="w-4 h-4" />
+            </button>
           </motion.nav>
         )}
       </header>
@@ -512,33 +521,27 @@ function Index() {
         className="fixed inset-0 z-0 h-screen w-full flex items-center overflow-hidden bg-background"
       >
         
-        {/* Center Content - Quote on left, Symbol on right */}
-        <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 z-20 pointer-events-none mt-20">
+        {/* Center Content - Quote on left */}
+        <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 z-20 pointer-events-none mt-10 md:mt-0">
            <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
               
               {/* Left Quote */}
-              <div className="max-w-[200px] md:max-w-[320px] pointer-events-auto mt-10 md:mt-20">
+              <div className="max-w-[240px] md:max-w-[360px] pointer-events-auto mt-0 md:-mt-24">
                  <span className="text-4xl md:text-5xl font-serif leading-tight text-foreground">"</span>
-                 <h2 className="text-sm md:text-xl font-bold uppercase leading-relaxed text-foreground mt-2">
-                   Turning complex problems into elegant digital solutions.
+                 <h2 className="text-sm md:text-2xl font-bold uppercase leading-relaxed text-foreground mt-2">
+                   DO OR DO NOT, THERE IS NO TRY.
                  </h2>
-                 <p className="mt-6 text-[10px] md:text-xs font-mono text-muted-foreground uppercase tracking-[0.2em]">Product Builder & Analyst</p>
+                 <p className="mt-6 text-[10px] md:text-xs font-mono text-muted-foreground uppercase tracking-[0.2em]">- Master Yoda</p>
                  
                  <div className="mt-8 flex gap-4 pointer-events-auto">
                     <Magnetic>
-                      <a href="#work" className="rounded-full bg-primary px-6 py-2 text-xs font-bold text-black hover:scale-105 transition-transform inline-block">
+                      <a href="#work" className="rounded-full bg-primary px-6 py-3 text-xs md:text-sm font-bold text-black hover:scale-105 transition-transform inline-block">
                         Explore Work
                       </a>
                     </Magnetic>
                  </div>
               </div>
 
-              {/* Right Detail */}
-              <div className="hidden md:block pointer-events-auto text-right mt-10 md:mt-20">
-                 <div className="text-[140px] font-light leading-none text-foreground/5 select-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 2px, transparent 2px, transparent 8px)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                   99
-                 </div>
-              </div>
            </div>
         </div>
 
@@ -558,9 +561,9 @@ function Index() {
         </div>
 
         {/* Giant Name - Layer Depan (z-20) */}
-        <div className="absolute bottom-10 md:bottom-12 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden whitespace-nowrap">
+        <div className="absolute bottom-6 md:bottom-10 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden px-4">
            <h1 
-             className="text-[16vw] md:text-[14vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary"
+             className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap"
              style={{ 
                textShadow: '0px 10px 40px rgba(0,0,0,0.8)'
              }}
@@ -665,6 +668,45 @@ function Index() {
           </section>
         </div>
       </div>
+
+      {/* Resume Drawer Popup */}
+      <AnimatePresence>
+        {isResumeOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsResumeOpen(false)}
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm cursor-pointer"
+            />
+            {/* Drawer */}
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 h-screen w-full md:w-[50vw] bg-white z-50 shadow-2xl overflow-y-auto flex flex-col"
+            >
+               <div className="p-6 md:p-10 border-b border-gray-200 flex justify-between items-center bg-white sticky top-0 z-10">
+                  <h2 className="text-2xl font-bold text-black uppercase tracking-tight">Resume / CV</h2>
+                  <button onClick={() => setIsResumeOpen(false)} className="p-2 rounded-full hover:bg-gray-100 text-black transition-colors">
+                    <X className="w-6 h-6" />
+                  </button>
+               </div>
+               <div className="p-6 md:p-10 flex-1 text-black">
+                  <div className="aspect-[1/1.4] w-full bg-gray-50 rounded-xl border border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-500 font-mono text-sm space-y-4">
+                     <p>[ Interactive Resume Viewer ]</p>
+                     <p className="text-xs text-gray-400">PDF will be embedded here</p>
+                     <a href="#" className="mt-4 px-6 py-2 bg-black text-white rounded-full text-xs hover:bg-black/80 transition-colors uppercase tracking-widest font-bold">Download PDF</a>
+                  </div>
+               </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
     </main>
   );
 }
