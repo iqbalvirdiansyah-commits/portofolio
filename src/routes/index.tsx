@@ -473,10 +473,6 @@ function Index() {
                 {id}
               </a>
             ))}
-            <button onClick={() => setIsResumeOpen(true)} className="flex items-center gap-2 hover:text-primary transition-colors text-foreground ml-4">
-               <span className="text-xs font-bold uppercase tracking-widest">Resume</span>
-               <Menu className="w-4 h-4" />
-            </button>
           </nav>
 
           <button
@@ -505,9 +501,6 @@ function Index() {
                 {id}
               </a>
             ))}
-            <button onClick={() => { setIsMenuOpen(false); setIsResumeOpen(true); }} className="text-sm font-medium uppercase tracking-wider text-primary text-left mt-2 flex items-center gap-2">
-               Resume <Menu className="w-4 h-4" />
-            </button>
           </motion.nav>
         )}
       </header>
@@ -546,26 +539,32 @@ function Index() {
         </div>
 
         {/* Photo - Layer Di Belakang (z-10) */}
-        <div 
-           className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[75vh] md:h-[85vh] w-full max-w-[800px] z-10 flex items-end justify-center pointer-events-none"
-           style={{
-             WebkitMaskImage: "linear-gradient(to top, transparent 0%, black 15%, black 100%)",
-             maskImage: "linear-gradient(to top, transparent 0%, black 15%, black 100%)",
-           }}
-        >
-           <img 
-             src="/iqbal.jpg" 
-             alt="Iqbal Virdiansyah" 
-             className="w-full h-full object-cover object-top md:object-contain md:object-bottom opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000" 
-           />
+        <div className="absolute bottom-[20%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10 flex items-center justify-center pointer-events-none">
+           {/* White Circle Frame */}
+           <div className="relative w-[75vw] h-[75vw] sm:w-[50vw] sm:h-[50vw] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] rounded-full border-[6px] md:border-[10px] border-white overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-end justify-center">
+              <img 
+                src="/new_iqbal.png" 
+                alt="Iqbal Virdiansyah" 
+                className="w-[95%] h-auto object-contain object-bottom translate-y-4 md:translate-y-6" 
+              />
+           </div>
         </div>
+
+        {/* Floating Resume Button (Right edge) */}
+        <button 
+          onClick={() => setIsResumeOpen(true)}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
+        >
+           <Menu className="w-5 h-5 group-hover:scale-110 transition-transform" />
+           <span className="text-xs font-bold uppercase tracking-[0.2em] select-none" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>RESUME</span>
+        </button>
 
         {/* Giant Name - Layer Depan (z-20) */}
         <div className="absolute bottom-6 md:bottom-10 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden px-4">
            <h1 
              className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap"
              style={{ 
-               textShadow: '0px 10px 40px rgba(0,0,0,0.8)'
+               textShadow: '0px 10px 40px rgba(0,0,0,0.9)'
              }}
            >
              IQBAL VIRDIANSYAH
