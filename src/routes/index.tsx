@@ -539,13 +539,13 @@ function Index() {
         </div>
 
         {/* Photo - Layer Di Belakang (z-10) */}
-        <div className="absolute bottom-[20%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10 flex items-center justify-center pointer-events-none">
-           {/* White Circle Frame */}
-           <div className="relative w-[75vw] h-[75vw] sm:w-[50vw] sm:h-[50vw] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] rounded-full border-[6px] md:border-[10px] border-white overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-end justify-center">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center pointer-events-none">
+           {/* Massive White Circle Frame */}
+           <div className="relative w-[120vh] h-[120vh] md:w-[130vh] md:h-[130vh] rounded-full overflow-hidden bg-white shadow-2xl flex items-end justify-center">
               <img 
                 src="/new_iqbal.png" 
                 alt="Iqbal Virdiansyah" 
-                className="w-[95%] h-auto object-contain object-bottom translate-y-4 md:translate-y-6" 
+                className="w-auto h-[75%] md:h-[80%] object-contain object-bottom translate-y-[2%] md:translate-y-[4%]" 
               />
            </div>
         </div>
