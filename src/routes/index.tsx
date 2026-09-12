@@ -514,25 +514,41 @@ function Index() {
         className="fixed inset-0 z-0 h-screen w-full flex items-center overflow-hidden bg-background"
       >
         
-        {/* Center Content - Quote on left */}
+        {/* Center Content - Quote on left & Socials on right */}
         <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 z-20 pointer-events-none mt-10 md:mt-0">
-           <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
+           <div className="w-full max-w-7xl mx-auto flex justify-between items-center">
               
               {/* Left Quote */}
-              <div className="max-w-[240px] md:max-w-[360px] pointer-events-auto mt-0 md:-mt-24">
-                 <span className="text-4xl md:text-5xl font-serif leading-tight text-foreground">"</span>
-                 <h2 className="text-sm md:text-2xl font-bold uppercase leading-relaxed text-foreground mt-2">
+              <div className="relative max-w-[240px] md:max-w-[360px] pointer-events-auto mt-0 md:-mt-24 z-30 mix-blend-difference text-white">
+                 <div className="absolute -top-8 -left-4 text-7xl md:text-8xl font-serif leading-none opacity-40">"</div>
+                 <h2 className="text-sm md:text-2xl font-bold uppercase leading-relaxed mt-2 relative z-10">
                    DO OR DO NOT, THERE IS NO TRY.
                  </h2>
-                 <p className="mt-6 text-[10px] md:text-xs font-mono text-muted-foreground uppercase tracking-[0.2em]">- Master Yoda</p>
+                 <p className="mt-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] relative z-10">- Master Yoda</p>
+                 <div className="absolute -bottom-10 right-4 text-7xl md:text-8xl font-serif leading-none opacity-40 rotate-180">"</div>
                  
-                 <div className="mt-8 flex gap-4 pointer-events-auto">
+                 <div className="mt-10 flex gap-4 pointer-events-auto relative z-10">
                     <Magnetic>
-                      <a href="#work" className="rounded-full bg-primary px-6 py-3 text-xs md:text-sm font-bold text-black hover:scale-105 transition-transform inline-block">
+                      <a href="#work" className="rounded-full border border-white px-6 py-3 text-xs md:text-sm font-bold text-white hover:bg-white hover:text-black transition-all inline-block">
                         Explore Work
                       </a>
                     </Magnetic>
                  </div>
+              </div>
+
+              {/* Right Socials */}
+              <div className="hidden md:flex flex-col gap-5 pointer-events-auto z-30 mix-blend-difference text-white mt-0 md:-mt-24 items-end">
+                 {[
+                   { icon: Github, href: "https://github.com", label: "GitHub" },
+                   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+                   { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
+                 ].map((item) => (
+                    <Magnetic key={item.label}>
+                       <a href={item.href} target="_blank" rel="noreferrer" className="group flex items-center justify-center w-12 h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
+                          <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                       </a>
+                    </Magnetic>
+                 ))}
               </div>
 
            </div>
@@ -564,7 +580,7 @@ function Index() {
            <h1 
              className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap"
              style={{ 
-               textShadow: '0px 10px 40px rgba(0,0,0,0.9)'
+               WebkitTextStroke: '2px black'
              }}
            >
              IQBAL VIRDIANSYAH
