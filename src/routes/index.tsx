@@ -447,21 +447,21 @@ function Index() {
       scrollTrigger: {
         trigger: heroRef.current, // we'll use the empty scroll-capture div as the trigger
         start: "top top",
-        end: "bottom top",
+        end: "+=600",
         scrub: 1,
       }
     });
 
     tl.to(circleRef.current, {
-      scale: 1.6, // Zoom in the massive circle even more!
-      ease: "power1.inOut"
+      scale: 3, // Zoom in the massive circle even more!
+      ease: "power2.out"
     }, 0);
 
     tl.to(nameRef.current, {
-      letterSpacing: "0.2em", // Expand text!
+      letterSpacing: "0.25em", // Expand text!
       opacity: 0, // fade out eventually
-      scale: 0.95,
-      ease: "power1.inOut"
+      scale: 0.9,
+      ease: "power2.out"
     }, 0);
   });
 
@@ -546,16 +546,15 @@ function Index() {
         <div className="absolute top-28 md:top-32 left-0 w-full px-6 md:px-12 z-30 pointer-events-none mix-blend-difference text-white">
            <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
               
-              {/* Left Quote (No Box, pure text) */}
+              {/* Left Quote (Tidy layout) */}
               <div className="relative max-w-[240px] md:max-w-[320px] pointer-events-auto">
-                 <div className="absolute -top-8 -left-4 text-7xl md:text-8xl font-serif leading-none opacity-40">"</div>
-                 <h2 className="text-sm md:text-xl font-bold uppercase leading-relaxed mt-2 relative z-10">
+                 <span className="block text-5xl md:text-6xl font-serif leading-none mb-4">"</span>
+                 <h2 className="text-sm md:text-2xl font-bold uppercase leading-snug">
                    DO OR DO NOT,<br/>THERE IS NO TRY.
                  </h2>
-                 <p className="mt-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] relative z-10">- Master Yoda</p>
-                 <div className="absolute -bottom-10 right-4 text-7xl md:text-8xl font-serif leading-none opacity-40 rotate-180">"</div>
+                 <p className="mt-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em]">- Master Yoda</p>
                  
-                 <div className="mt-10 flex gap-4 pointer-events-auto relative z-10">
+                 <div className="mt-10 flex gap-4 pointer-events-auto">
                     <Magnetic>
                       <a href="#work" className="rounded-full border border-white px-6 py-3 text-xs md:text-sm font-bold text-white hover:bg-white hover:text-black transition-all inline-block">
                         Explore Work
