@@ -13,9 +13,11 @@ import {
   type Variants,
 } from "framer-motion";
 import { ArrowUpRight, Mail, Github, Linkedin, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-
-
+gsap.registerPlugin(ScrollTrigger);
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -423,6 +425,9 @@ function Index() {
   }, []);
 
   const heroRef = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -435,7 +440,30 @@ function Index() {
     offset: ["start start", "end start"],
   });
   const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0]);
-  const heroScale = useTransform(heroProgress, [0, 1], [1, 0.94]);
+
+  useGSAP(() => {
+    // 3. ScrollTrigger: Expand text tracking and zoom massive circle when scrolling down
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroRef.current, // we'll use the empty scroll-capture div as the trigger
+        start: "top top",
+        end: "bottom top",
+        scrub: 1,
+      }
+    });
+
+    tl.to(circleRef.current, {
+      scale: 1.6, // Zoom in the massive circle even more!
+      ease: "power1.inOut"
+    }, 0);
+
+    tl.to(nameRef.current, {
+      letterSpacing: "0.2em", // Expand text!
+      opacity: 0, // fade out eventually
+      scale: 0.95,
+      ease: "power1.inOut"
+    }, 0);
+  });
 
   return (
     <main className="relative storm-bg">
@@ -510,33 +538,33 @@ function Index() {
       {/* ═══════════════════════════════════════ */}
       <motion.section
         id="about"
-        style={{ opacity: heroOpacity, scale: heroScale }}
+        style={{ opacity: heroOpacity }}
         className="fixed inset-0 z-0 h-screen w-full flex items-center overflow-hidden bg-background"
       >
         
         {/* Top Content - Quote on left & Socials on right */}
-        <div className="absolute top-28 md:top-32 left-0 w-full px-6 md:px-12 z-30 pointer-events-none">
+        <div className="absolute top-28 md:top-32 left-0 w-full px-6 md:px-12 z-30 pointer-events-none mix-blend-difference text-white">
            <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
               
-              {/* Left Quote Glass Card */}
-              <div className="relative max-w-[260px] md:max-w-[340px] pointer-events-auto bg-black/40 backdrop-blur-xl text-white p-6 md:p-8 rounded-3xl border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
-                 <div className="absolute -top-6 -left-2 text-7xl md:text-8xl font-serif leading-none text-white/20">"</div>
-                 <h2 className="text-sm md:text-xl font-bold uppercase leading-relaxed relative z-10">
+              {/* Left Quote (No Box, pure text) */}
+              <div className="relative max-w-[240px] md:max-w-[320px] pointer-events-auto">
+                 <div className="absolute -top-8 -left-4 text-7xl md:text-8xl font-serif leading-none opacity-40">"</div>
+                 <h2 className="text-sm md:text-xl font-bold uppercase leading-relaxed mt-2 relative z-10">
                    DO OR DO NOT,<br/>THERE IS NO TRY.
                  </h2>
-                 <p className="mt-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] relative z-10 text-primary">- Master Yoda</p>
-                 <div className="absolute -bottom-10 right-4 text-7xl md:text-8xl font-serif leading-none text-white/20 rotate-180">"</div>
+                 <p className="mt-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] relative z-10">- Master Yoda</p>
+                 <div className="absolute -bottom-10 right-4 text-7xl md:text-8xl font-serif leading-none opacity-40 rotate-180">"</div>
                  
-                 <div className="mt-8 flex gap-4 pointer-events-auto relative z-10">
+                 <div className="mt-10 flex gap-4 pointer-events-auto relative z-10">
                     <Magnetic>
-                      <a href="#work" className="rounded-full bg-white px-6 py-3 text-xs md:text-sm font-bold text-black hover:scale-105 transition-transform inline-block">
+                      <a href="#work" className="rounded-full border border-white px-6 py-3 text-xs md:text-sm font-bold text-white hover:bg-white hover:text-black transition-all inline-block">
                         Explore Work
                       </a>
                     </Magnetic>
                  </div>
               </div>
 
-              {/* Right Socials Glass Buttons */}
+              {/* Right Socials (No Box) */}
               <div className="hidden md:flex flex-col gap-4 pointer-events-auto items-end">
                  {[
                    { icon: Github, href: "https://github.com", label: "GitHub" },
@@ -544,7 +572,7 @@ function Index() {
                    { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
                  ].map((item) => (
                     <Magnetic key={item.label}>
-                       <a href={item.href} target="_blank" rel="noreferrer" className="group flex items-center justify-center w-14 h-14 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl text-white hover:bg-black transition-all duration-300 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+                       <a href={item.href} target="_blank" rel="noreferrer" className="group flex items-center justify-center w-12 h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
                           <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
                        </a>
                     </Magnetic>
@@ -557,7 +585,7 @@ function Index() {
         {/* Photo - Layer Di Belakang (z-10) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center pointer-events-none">
            {/* Massive White Circle Frame */}
-           <div className="relative w-[120vh] h-[120vh] md:w-[130vh] md:h-[130vh] rounded-full overflow-hidden bg-white shadow-2xl flex items-end justify-center">
+           <div ref={circleRef} className="relative w-[120vh] h-[120vh] md:w-[130vh] md:h-[130vh] rounded-full overflow-hidden bg-white shadow-2xl flex items-end justify-center">
               <img 
                 src="/new_iqbal.png" 
                 alt="Iqbal Virdiansyah" 
@@ -578,7 +606,8 @@ function Index() {
         {/* Giant Name - Layer Depan (z-20) */}
         <div className="absolute bottom-6 md:bottom-10 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden px-4">
            <h1 
-             className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap"
+             ref={nameRef}
+             className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap origin-bottom"
            >
              IQBAL VIRDIANSYAH
            </h1>
