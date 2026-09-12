@@ -13,11 +13,7 @@ import {
   type Variants,
 } from "framer-motion";
 import { ArrowUpRight, Mail, Github, Linkedin, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -425,9 +421,6 @@ function Index() {
   }, []);
 
   const heroRef = useRef<HTMLDivElement>(null);
-  const circleRef = useRef<HTMLDivElement>(null);
-  const nameRef = useRef<HTMLHeadingElement>(null);
-
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -439,31 +432,13 @@ function Index() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
+  
+  // Convert GSAP logic directly to Framer Motion transforms
   const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0]);
-
-  useGSAP(() => {
-    // 3. ScrollTrigger: Expand text tracking and zoom massive circle when scrolling down
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: heroRef.current, // we'll use the empty scroll-capture div as the trigger
-        start: "top top",
-        end: "+=600",
-        scrub: 1,
-      }
-    });
-
-    tl.to(circleRef.current, {
-      scale: 3, // Zoom in the massive circle even more!
-      ease: "power2.out"
-    }, 0);
-
-    tl.to(nameRef.current, {
-      letterSpacing: "0.25em", // Expand text!
-      opacity: 0, // fade out eventually
-      scale: 0.9,
-      ease: "power2.out"
-    }, 0);
-  });
+  const circleScale = useTransform(heroProgress, [0, 0.4], [1, 3.5]); // Massive zoom quickly
+  const nameTracking = useTransform(heroProgress, [0, 0.4], ["0em", "0.25em"]);
+  const nameScale = useTransform(heroProgress, [0, 0.4], [1, 0.9]);
+  const nameOpacity = useTransform(heroProgress, [0.3, 0.6], [1, 0]);
 
   return (
     <main className="relative storm-bg">
@@ -584,13 +559,16 @@ function Index() {
         {/* Photo - Layer Di Belakang (z-10) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center pointer-events-none">
            {/* Massive White Circle Frame */}
-           <div ref={circleRef} className="relative w-[120vh] h-[120vh] md:w-[130vh] md:h-[130vh] rounded-full overflow-hidden bg-white shadow-2xl flex items-end justify-center">
+           <motion.div 
+             style={{ scale: circleScale }}
+             className="relative w-[120vh] h-[120vh] md:w-[130vh] md:h-[130vh] rounded-full overflow-hidden bg-white shadow-2xl flex items-end justify-center"
+           >
               <img 
                 src="/new_iqbal.png" 
                 alt="Iqbal Virdiansyah" 
                 className="w-auto h-[75%] md:h-[80%] object-contain object-bottom translate-y-[2%] md:translate-y-[4%]" 
               />
-           </div>
+           </motion.div>
         </div>
 
         {/* Floating Resume Button (Right edge) */}
@@ -604,12 +582,12 @@ function Index() {
 
         {/* Giant Name - Layer Depan (z-20) */}
         <div className="absolute bottom-6 md:bottom-10 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden px-4">
-           <h1 
-             ref={nameRef}
+           <motion.h1 
+             style={{ letterSpacing: nameTracking, scale: nameScale, opacity: nameOpacity }}
              className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap origin-bottom"
            >
              IQBAL VIRDIANSYAH
-           </h1>
+           </motion.h1>
         </div>
       </motion.section>
 
