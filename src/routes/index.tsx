@@ -509,128 +509,65 @@ function Index() {
       <motion.section
         id="about"
         style={{ opacity: heroOpacity, scale: heroScale }}
-        className="fixed inset-0 z-0 h-screen w-full flex items-center overflow-hidden"
+        className="fixed inset-0 z-0 h-screen w-full flex items-center overflow-hidden bg-background"
       >
-        {/* GradientWaves — white on black */}
-        <div className="absolute inset-0 z-0">
-          <GradientWaves
-            horizonColor="#000000"
-            waveColor="#999999"
-            crestColor="#ffffff"
-            speed={0.3}
-            amplitude={2.0}
-            waveScale={0.5}
-            waveRatio={0.9}
-            swell={30}
-            turbulence={18}
-            tilt={1.1}
-            zoom={1}
-            height={5.5}
-            fogDepth={18}
-            detail="medium"
-            brightness={0.85}
-            opacity={1}
-            mouseInteraction
-            parallaxStrength={0.4}
-            grain
-            grainIntensity={0.04}
-          />
+        
+        {/* Center Content - Quote on left, Symbol on right */}
+        <div className="relative w-full h-full flex flex-col justify-center px-6 md:px-12 z-20 pointer-events-none mt-20">
+           <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
+              
+              {/* Left Quote */}
+              <div className="max-w-[200px] md:max-w-[320px] pointer-events-auto mt-10 md:mt-20">
+                 <span className="text-4xl md:text-5xl font-serif leading-tight text-foreground">"</span>
+                 <h2 className="text-sm md:text-xl font-bold uppercase leading-relaxed text-foreground mt-2">
+                   Turning complex problems into elegant digital solutions.
+                 </h2>
+                 <p className="mt-6 text-[10px] md:text-xs font-mono text-muted-foreground uppercase tracking-[0.2em]">Product Builder & Analyst</p>
+                 
+                 <div className="mt-8 flex gap-4 pointer-events-auto">
+                    <Magnetic>
+                      <a href="#work" className="rounded-full bg-primary px-6 py-2 text-xs font-bold text-black hover:scale-105 transition-transform inline-block">
+                        Explore Work
+                      </a>
+                    </Magnetic>
+                 </div>
+              </div>
+
+              {/* Right Detail */}
+              <div className="hidden md:block pointer-events-auto text-right mt-10 md:mt-20">
+                 <div className="text-[140px] font-light leading-none text-foreground/5 select-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 2px, transparent 2px, transparent 8px)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                   99
+                 </div>
+              </div>
+           </div>
         </div>
 
-        {/* Bottom fade into content layer */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 z-10 bg-gradient-to-t from-background to-transparent" />
-
-        {/* Left photo */}
-        <div
-          className="absolute inset-y-0 left-0 w-full md:w-[45%] z-0"
-          style={{
-            WebkitMaskImage: "linear-gradient(to right, black 40%, transparent 100%)",
-            maskImage: "linear-gradient(to right, black 40%, transparent 100%)",
-          }}
+        {/* Photo - Layer Di Belakang (z-10) */}
+        <div 
+           className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[75vh] md:h-[85vh] w-full max-w-[800px] z-10 flex items-end justify-center pointer-events-none"
+           style={{
+             WebkitMaskImage: "linear-gradient(to top, transparent 0%, black 15%, black 100%)",
+             maskImage: "linear-gradient(to top, transparent 0%, black 15%, black 100%)",
+           }}
         >
-          <img
-            src="/iqbal.jpg"
-            alt="Iqbal Virdiansyah"
-            loading="eager"
-            className="h-full w-full object-cover object-[center_30%] opacity-70"
-          />
+           <img 
+             src="/iqbal.jpg" 
+             alt="Iqbal Virdiansyah" 
+             className="w-full h-full object-cover object-top md:object-contain md:object-bottom opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000" 
+           />
         </div>
 
-        {/* Right readability overlay */}
-        <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-[70%] z-0 bg-gradient-to-l from-background via-background/80 to-transparent" />
-        <div className="md:hidden pointer-events-none absolute inset-x-0 bottom-0 h-2/3 z-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
-
-        {/* Content */}
-        <div className="relative mx-auto w-full max-w-5xl z-10 grid md:grid-cols-[30%_70%] px-6 -mt-20 md:-mt-24">
-          <div className="hidden md:block" />
-          <div className="flex flex-col justify-center py-20 md:pl-10">
-            <motion.p custom={1} variants={fadeUp} initial="hidden" animate="show"
-              className="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.35em] text-primary"
-            >
-              Jakarta &middot; Product Builder
-            </motion.p>
-
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="show" className="mt-6 w-fit">
-              <GradientText
-                colors={["#c8ff00", "#ffffff", "#c8ff00", "#ffffff", "#c8ff00"]}
-                animationSpeed={4}
-                showBorder={false}
-                className="!m-0 !justify-start text-left text-3xl leading-tight sm:text-4xl"
-              >
-                <DecryptedText
-                  text="Iqbal Virdiansyah, Information Systems at Universitas Indonesia."
-                  animateOn="view"
-                  revealDirection="start"
-                  sequential={true}
-                  speed={30}
-                  maxIterations={15}
-                />
-              </GradientText>
-            </motion.div>
-
-            <motion.p custom={3} variants={fadeUp} initial="hidden" animate="show"
-              className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground"
-            >
-              I am an Information Systems student at Universitas Indonesia with a deep passion for the intersection
-              of technology, design, and business. My primary focus is translating user needs into digital solutions
-              that are efficient, intuitive, and of high quality.
-            </motion.p>
-
-            <motion.div custom={4} variants={fadeUp} initial="hidden" animate="show"
-              className="mt-8 flex flex-wrap gap-2"
-            >
-              {stack.map((s) => (
-                <span key={s} className="rounded-full border border-border bg-foreground/5 px-3 py-1 text-xs text-muted-foreground">
-                  {s}
-                </span>
-              ))}
-            </motion.div>
-
-            <motion.div custom={5} variants={fadeUp} initial="hidden" animate="show"
-              className="mt-10 flex flex-wrap items-center gap-4"
-            >
-              <Magnetic className="inline-block">
-                <a
-                  href="#work"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-[var(--glow-lime)]"
-                >
-                  View works <ArrowUpRight className="h-4 w-4" />
-                </a>
-              </Magnetic>
-              <a href="#contact" className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline">
-                Let's collaborate
-              </a>
-            </motion.div>
-          </div>
+        {/* Giant Name - Layer Depan (z-20) */}
+        <div className="absolute bottom-10 md:bottom-12 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden whitespace-nowrap">
+           <h1 
+             className="text-[16vw] md:text-[14vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary"
+             style={{ 
+               textShadow: '0px 10px 40px rgba(0,0,0,0.8)'
+             }}
+           >
+             IQBAL VIRDIANSYAH
+           </h1>
         </div>
-
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-muted-foreground z-10"
-        >
-          SCROLL
-        </motion.div>
       </motion.section>
 
       {/* Empty div to capture the scroll progress for hero */}
