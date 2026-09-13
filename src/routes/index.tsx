@@ -219,10 +219,10 @@ function ProjectCarousel() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [currentIndex]);
 
-  const p = projects[currentIndex];
+  const p = projects[currentIndex]!;
 
   return (
-    <div className="relative">
+    <div className="relative w-full max-w-7xl mx-auto">
       {/* Header row */}
       <div className="flex items-center justify-between mb-8">
         <motion.h2
