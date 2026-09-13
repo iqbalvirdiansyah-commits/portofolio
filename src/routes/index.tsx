@@ -13,7 +13,11 @@ import {
   type Variants,
 } from "framer-motion";
 import { ArrowUpRight, Mail, Github, Linkedin, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -436,6 +440,9 @@ function Index() {
   }, []);
 
   const heroRef = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -447,13 +454,31 @@ function Index() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  
-  // Convert GSAP logic directly to Framer Motion transforms
   const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0]);
-  const circleScale = useTransform(heroProgress, [0, 0.4], [1, 3.5]); // Massive zoom quickly
-  const nameTracking = useTransform(heroProgress, [0, 0.4], ["0em", "0.25em"]);
-  const nameScale = useTransform(heroProgress, [0, 0.4], [1, 0.9]);
-  const nameOpacity = useTransform(heroProgress, [0.3, 0.6], [1, 0]);
+
+  useGSAP(() => {
+    // 3. ScrollTrigger: Expand text tracking and zoom massive circle when scrolling down
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroRef.current, // we'll use the empty scroll-capture div as the trigger
+        start: "top top",
+        end: "+=600",
+        scrub: 1,
+      }
+    });
+
+    tl.to(circleRef.current, {
+      scale: 3, // Zoom in the massive circle even more!
+      ease: "power2.out"
+    }, 0);
+
+    tl.to(nameRef.current, {
+      letterSpacing: "0.25em", // Expand text!
+      opacity: 0, // fade out eventually
+      scale: 0.9,
+      ease: "power2.out"
+    }, 0);
+  });
 
   return (
     <main className="relative storm-bg">
@@ -553,43 +578,40 @@ function Index() {
                  </div>
               </div>
 
+              {/* Right Socials (No Box) */}
+              <div className="hidden md:flex flex-col gap-4 pointer-events-auto items-end">
+                 {[
+                   { icon: Github, href: "https://github.com", label: "GitHub" },
+                   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+                   { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
+                 ].map((item) => (
+                    <Magnetic key={item.label}>
+                       <a href={item.href} target="_blank" rel="noreferrer" className="group flex items-center justify-center w-12 h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
+                          <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                       </a>
+                    </Magnetic>
+                 ))}
+              </div>
+
            </div>
         </div>
 
         {/* Photo - Layer Di Belakang (z-10) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center pointer-events-none">
            {/* Massive White Circle Frame */}
-           <motion.div 
-             style={{ scale: circleScale }}
-             className="relative w-[120vh] h-[120vh] md:w-[130vh] md:h-[130vh] rounded-full overflow-hidden bg-white shadow-2xl flex items-end justify-center"
-           >
+           <div ref={circleRef} className="relative w-[120vh] h-[120vh] md:w-[130vh] md:h-[130vh] rounded-full overflow-hidden bg-white shadow-2xl flex items-end justify-center">
               <img 
                 src="/new_iqbal.png" 
                 alt="Iqbal Virdiansyah" 
                 className="w-auto h-[75%] md:h-[80%] object-contain object-bottom translate-y-[2%] md:translate-y-[4%]" 
               />
-           </motion.div>
-        </div>
-
-        {/* Floating Socials (Above Resume) */}
-        <div className="absolute right-4 md:right-6 top-1/2 -translate-y-[calc(50%+110px)] z-30 flex flex-col gap-4 pointer-events-none mix-blend-difference text-white items-center">
-           {[
-             { icon: Github, href: "https://github.com", label: "GitHub" },
-             { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-             { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
-           ].map((item) => (
-              <Magnetic key={item.label}>
-                 <a href={item.href} target="_blank" rel="noreferrer" className="group pointer-events-auto flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
-                    <item.icon className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
-                 </a>
-              </Magnetic>
-           ))}
+           </div>
         </div>
 
         {/* Floating Resume Button (Right edge) */}
         <button 
           onClick={() => setIsResumeOpen(true)}
-          className="absolute right-0 top-1/2 -translate-y-[calc(50%-70px)] z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
         >
            <Menu className="w-5 h-5 group-hover:scale-110 transition-transform" />
            <span className="text-xs font-bold uppercase tracking-[0.2em] select-none" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>RESUME</span>
@@ -597,12 +619,12 @@ function Index() {
 
         {/* Giant Name - Layer Depan (z-20) */}
         <div className="absolute bottom-6 md:bottom-10 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden px-4">
-           <motion.h1 
-             style={{ letterSpacing: nameTracking, scale: nameScale, opacity: nameOpacity }}
+           <h1 
+             ref={nameRef}
              className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap origin-bottom"
            >
              IQBAL VIRDIANSYAH
-           </motion.h1>
+           </h1>
         </div>
       </motion.section>
 
@@ -742,4 +764,4 @@ function Index() {
 
     </main>
   );
-}
+}
