@@ -239,53 +239,91 @@ function ProjectCarousel() {
         </span>
       </div>
 
-      {/* Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-border bg-card">
+      {/* Content wrapper */}
+      <div className="relative flex flex-col md:flex-row items-center gap-12 lg:gap-20">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentIndex}
             custom={direction}
-            initial={{ opacity: 0, x: direction * 80 }}
+            initial={{ opacity: 0, x: direction * 50 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: direction * -80 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col md:flex-row"
+            exit={{ opacity: 0, x: direction * -50 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col md:flex-row items-center w-full"
           >
-            {/* Image Side */}
-            <div className="relative w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:min-h-[360px] overflow-hidden">
-              <img
-                src={p.image}
-                alt={p.name}
-                className="absolute inset-0 h-full w-full object-cover object-top"
-              />
-              {/* Overlay fade for mobile only */}
-              <div className="md:hidden absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-              {/* Overlay fade for desktop */}
-              <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card" />
+            {/* Left Side: Monitor & Controls */}
+            <div className="w-full md:w-3/5 flex flex-col items-center">
+              
+              {/* Monitor Mockup */}
+              <div className="w-full relative">
+                {/* Screen Bezel */}
+                <div className="bg-[#1a1a1a] p-2 md:p-3 pb-3 md:pb-4 rounded-t-xl rounded-b-md border border-[#333] shadow-2xl relative z-10">
+                   {/* Webcam dot */}
+                   <div className="absolute top-1.5 md:top-2 left-1/2 -translate-x-1/2 w-1 h-1 md:w-1.5 md:h-1.5 bg-black rounded-full border border-[#222]"></div>
+                   {/* Screen Content */}
+                   <div className="bg-black w-full aspect-video rounded-sm overflow-hidden relative border border-[#0a0a0a]">
+                      <img 
+                        src={p.image} 
+                        alt={p.name} 
+                        className="w-full h-full object-cover object-top hover:scale-[1.03] transition-transform duration-700 ease-out" 
+                      />
+                   </div>
+                   {/* Bottom logo mark */}
+                   <div className="absolute bottom-1 md:bottom-1.5 left-1/2 -translate-x-1/2 w-3 md:w-4 h-0.5 bg-[#444] rounded-full"></div>
+                </div>
+                {/* Monitor Stand */}
+                <div className="w-12 md:w-16 h-8 md:h-12 bg-gradient-to-b from-[#222] to-[#111] mx-auto rounded-b-sm border-x border-b border-[#333] relative z-0" style={{ clipPath: "polygon(10% 0, 90% 0, 100% 100%, 0% 100%)" }}></div>
+                {/* Base */}
+                <div className="w-24 md:w-32 h-1.5 md:h-2 bg-[#333] mx-auto rounded-t-sm rounded-b-md shadow-xl -mt-0.5 relative z-10"></div>
+              </div>
+
+              {/* Navigation Controls (Below Monitor) */}
+              <div className="flex items-center gap-4 mt-8 md:mt-12">
+                <button
+                  onClick={prev}
+                  className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-border bg-background hover:border-primary hover:text-primary transition-all duration-300"
+                  aria-label="Previous project"
+                >
+                  <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+                </button>
+                <div className="flex items-center gap-2">
+                  {projects.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => goTo(i, i > currentIndex ? 1 : -1)}
+                      aria-label={`Go to project ${i + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        i === currentIndex
+                          ? "w-8 bg-primary"
+                          : "w-2 bg-border hover:bg-muted-foreground"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={next}
+                  className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-border bg-background hover:border-primary hover:text-primary transition-all duration-300"
+                  aria-label="Next project"
+                >
+                  <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+                </button>
+              </div>
             </div>
 
-            {/* Info Side */}
-            <div className="w-full md:w-3/5 p-8 sm:p-10 flex flex-col justify-center">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-primary">
-                    {p.role} &middot; {p.year}
-                  </p>
-                  <h3 className="mt-2 text-3xl sm:text-4xl font-light text-foreground">{p.name}</h3>
-                </div>
-                <a
-                  href={p.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-1 shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                >
-                  View <ArrowUpRight className="h-3 w-3" />
-                </a>
-              </div>
-              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            {/* Right Side: Info */}
+            <div className="w-full md:w-2/5 mt-12 md:mt-0 px-4 md:px-0 md:pl-12 flex flex-col justify-center">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">
+                {p.role} &middot; {p.year}
+              </p>
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-6 leading-none">
+                {p.name}
+              </h3>
+              
+              <p className="text-sm md:text-base leading-relaxed text-muted-foreground mb-8">
                 {p.desc}
               </p>
-              <div className="mt-8 flex flex-wrap gap-2">
+              
+              <div className="flex flex-wrap gap-2 mb-10">
                 {p.tags.map((t) => (
                   <span
                     key={t}
@@ -295,41 +333,18 @@ function ProjectCarousel() {
                   </span>
                 ))}
               </div>
+
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 w-fit rounded-full border-2 border-primary bg-primary px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-black transition-all hover:bg-transparent hover:text-primary"
+              >
+                View Project <ArrowUpRight className="h-4 w-4" />
+              </a>
             </div>
           </motion.div>
         </AnimatePresence>
-
-        {/* Nav buttons */}
-        <button
-          onClick={prev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
-          aria-label="Previous project"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
-          aria-label="Next project"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      </div>
-
-      {/* Dot indicators */}
-      <div className="mt-6 flex items-center justify-center gap-2">
-        {projects.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i, i > currentIndex ? 1 : -1)}
-            aria-label={`Go to project ${i + 1}`}
-            className={`rounded-full transition-all duration-300 ${
-              i === currentIndex
-                ? "bg-primary w-6 h-2"
-                : "bg-foreground/20 w-2 h-2 hover:bg-foreground/40"
-            }`}
-          />
-        ))}
       </div>
     </div>
   );
@@ -538,21 +553,6 @@ function Index() {
                  </div>
               </div>
 
-              {/* Right Socials (No Box) */}
-              <div className="hidden md:flex flex-col gap-4 pointer-events-auto items-end">
-                 {[
-                   { icon: Github, href: "https://github.com", label: "GitHub" },
-                   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                   { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
-                 ].map((item) => (
-                    <Magnetic key={item.label}>
-                       <a href={item.href} target="_blank" rel="noreferrer" className="group flex items-center justify-center w-12 h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
-                          <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                       </a>
-                    </Magnetic>
-                 ))}
-              </div>
-
            </div>
         </div>
 
@@ -571,10 +571,25 @@ function Index() {
            </motion.div>
         </div>
 
+        {/* Floating Socials (Above Resume) */}
+        <div className="absolute right-4 md:right-6 top-1/2 -translate-y-[calc(50%+110px)] z-30 flex flex-col gap-4 pointer-events-none mix-blend-difference text-white items-center">
+           {[
+             { icon: Github, href: "https://github.com", label: "GitHub" },
+             { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+             { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
+           ].map((item) => (
+              <Magnetic key={item.label}>
+                 <a href={item.href} target="_blank" rel="noreferrer" className="group pointer-events-auto flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
+                    <item.icon className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
+                 </a>
+              </Magnetic>
+           ))}
+        </div>
+
         {/* Floating Resume Button (Right edge) */}
         <button 
           onClick={() => setIsResumeOpen(true)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
+          className="absolute right-0 top-1/2 -translate-y-[calc(50%-70px)] z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
         >
            <Menu className="w-5 h-5 group-hover:scale-110 transition-transform" />
            <span className="text-xs font-bold uppercase tracking-[0.2em] select-none" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>RESUME</span>
