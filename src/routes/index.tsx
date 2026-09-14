@@ -562,15 +562,15 @@ function Index() {
            <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
               
               {/* Left Quote (with Yoda Image) */}
-              <div className="relative pointer-events-auto flex items-end md:items-start gap-3 md:gap-5">
+              <div className="relative pointer-events-auto flex items-start gap-4 md:gap-6">
                  
                  {/* Yoda Image */}
-                 <div className="w-20 md:w-32 shrink-0">
-                    <img src="/yoda.png" alt="Master Yoda" className="w-full h-auto object-contain drop-shadow-2xl" />
+                 <div className="w-24 md:w-40 lg:w-48 shrink-0">
+                    <img src="/yoda.png" alt="Master Yoda" className="w-full h-auto object-contain drop-shadow-[0_15px_30px_rgba(255,255,255,0.15)] md:-translate-y-2" />
                  </div>
                  
                  {/* Quote Text */}
-                 <div className="flex flex-col justify-center pb-2 md:pt-4">
+                 <div className="flex flex-col justify-center pt-2 md:pt-4">
                     <div className="flex items-start gap-1 md:gap-2">
                        <span className="text-4xl md:text-6xl font-serif leading-none text-white/50 translate-y-1">"</span>
                        <h2 className="text-base md:text-2xl lg:text-3xl font-black uppercase leading-tight tracking-tight">
@@ -588,22 +588,6 @@ function Index() {
                     </div>
                  </div>
               </div>
-
-              {/* Right Socials (No Box) */}
-              <div className="hidden md:flex flex-col gap-4 pointer-events-auto items-end">
-                 {[
-                   { icon: Github, href: "https://github.com", label: "GitHub" },
-                   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                   { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
-                 ].map((item) => (
-                    <Magnetic key={item.label}>
-                       <a href={item.href} target="_blank" rel="noreferrer" className="group flex items-center justify-center w-12 h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
-                          <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                       </a>
-                    </Magnetic>
-                 ))}
-              </div>
-
            </div>
         </div>
 
@@ -619,10 +603,25 @@ function Index() {
            </div>
         </div>
 
-        {/* Floating Resume Button (Right edge) */}
+        {/* Floating Socials (Vertically centered) */}
+        <div className="absolute right-4 md:right-6 top-[40%] -translate-y-1/2 z-30 flex flex-col gap-4 pointer-events-none mix-blend-difference text-white items-center">
+           {[
+             { icon: Github, href: "https://github.com", label: "GitHub" },
+             { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+             { icon: Mail, href: "mailto:iqbalvirdiansyah@gmail.com", label: "Email" }
+           ].map((item) => (
+              <Magnetic key={item.label}>
+                 <a href={item.href} target="_blank" rel="noreferrer" className="group pointer-events-auto flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/50 hover:border-white transition-all duration-300">
+                    <item.icon className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
+                 </a>
+              </Magnetic>
+           ))}
+        </div>
+
+        {/* Floating Resume Button (Vertically centered) */}
         <button 
           onClick={() => setIsResumeOpen(true)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
+          className="absolute right-0 top-[60%] -translate-y-1/2 z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
         >
            <Menu className="w-5 h-5 group-hover:scale-110 transition-transform" />
            <span className="text-xs font-bold uppercase tracking-[0.2em] select-none" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>RESUME</span>
