@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import GradientText from "../components/GradientText";
-import GradientWaves from "../components/GradientWaves";
-import DecryptedText from "../components/DecryptedText";
 import LightRays from "../components/LightRays";
 import { FalconIntro } from "../components/FalconIntro";
 import { useRef, useState, useEffect } from "react";
