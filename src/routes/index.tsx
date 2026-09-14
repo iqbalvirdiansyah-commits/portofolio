@@ -561,20 +561,31 @@ function Index() {
         <div className="absolute top-28 md:top-32 left-0 w-full px-6 md:px-12 z-30 pointer-events-none mix-blend-difference text-white">
            <div className="w-full max-w-7xl mx-auto flex justify-between items-start">
               
-              {/* Left Quote (Tidy layout) */}
-              <div className="relative max-w-[240px] md:max-w-[320px] pointer-events-auto">
-                 <span className="block text-5xl md:text-6xl font-serif leading-none mb-4">"</span>
-                 <h2 className="text-sm md:text-2xl font-bold uppercase leading-snug">
-                   DO OR DO NOT,<br/>THERE IS NO TRY.
-                 </h2>
-                 <p className="mt-4 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em]">- Master Yoda</p>
+              {/* Left Quote (with Yoda Image) */}
+              <div className="relative pointer-events-auto flex items-end md:items-start gap-3 md:gap-5">
                  
-                 <div className="mt-10 flex gap-4 pointer-events-auto">
-                    <Magnetic>
-                      <a href="#work" className="rounded-full border border-white px-6 py-3 text-xs md:text-sm font-bold text-white hover:bg-white hover:text-black transition-all inline-block">
-                        Explore Work
-                      </a>
-                    </Magnetic>
+                 {/* Yoda Image */}
+                 <div className="w-20 md:w-32 shrink-0">
+                    <img src="/yoda.png" alt="Master Yoda" className="w-full h-auto object-contain drop-shadow-2xl" />
+                 </div>
+                 
+                 {/* Quote Text */}
+                 <div className="flex flex-col justify-center pb-2 md:pt-4">
+                    <div className="flex items-start gap-1 md:gap-2">
+                       <span className="text-4xl md:text-6xl font-serif leading-none text-white/50 translate-y-1">"</span>
+                       <h2 className="text-base md:text-2xl lg:text-3xl font-black uppercase leading-tight tracking-tight">
+                         DO OR DO NOT,<br/>THERE IS NO TRY.
+                       </h2>
+                    </div>
+                    <p className="mt-1 md:mt-2 text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-white/60 pl-6 md:pl-10">- Master Yoda</p>
+                    
+                    <div className="mt-6 md:mt-8 pl-6 md:pl-10 pointer-events-auto">
+                       <Magnetic>
+                         <a href="#work" className="rounded-full border border-white/50 px-6 py-3 text-xs md:text-sm font-bold text-white hover:border-white hover:bg-white hover:text-black transition-all inline-block">
+                           Explore Work
+                         </a>
+                       </Magnetic>
+                    </div>
                  </div>
               </div>
 
