@@ -3,6 +3,7 @@ import GradientText from "../components/GradientText";
 import GradientWaves from "../components/GradientWaves";
 import DecryptedText from "../components/DecryptedText";
 import LightRays from "../components/LightRays";
+import { FalconIntro } from "../components/FalconIntro";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -458,11 +459,11 @@ function Index() {
 
   useGSAP(() => {
     // 3. ScrollTrigger: Expand text tracking and zoom massive circle when scrolling down
+    // We wait 200vh for the Falcon Intro to finish before starting this
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: heroRef.current, // we'll use the empty scroll-capture div as the trigger
-        start: "top top",
-        end: "+=600",
+        start: () => window.innerHeight * 2,
+        end: () => window.innerHeight * 4,
         scrub: 1,
       }
     });
@@ -482,6 +483,10 @@ function Index() {
 
   return (
     <main className="relative storm-bg">
+      <FalconIntro />
+      {/* Spacer for Falcon Intro (200vh) + Hero GSAP Animation (200vh) */}
+      <div className="h-[400vh] w-full" />
+
       {/* Progress bar */}
       <motion.div
         style={{ scaleX: progress }}
@@ -641,8 +646,8 @@ function Index() {
         </div>
       </motion.section>
 
-      {/* Empty div to capture the scroll progress for hero */}
-      <div ref={heroRef} className="absolute inset-x-0 top-0 h-screen pointer-events-none" />
+      {/* Empty div to capture the scroll progress for hero fade out */}
+      <div ref={heroRef} className="absolute inset-x-0 top-[400vh] h-screen pointer-events-none" />
 
       {/* ═══════════════════════════════════════════════════════ */}
       {/* LAYER 2: CONTENT — naik dari bawah menutupi Hero       */}
