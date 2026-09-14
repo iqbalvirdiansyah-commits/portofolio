@@ -457,35 +457,11 @@ function Index() {
   });
   const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0]);
 
-  useGSAP(() => {
-    // 3. ScrollTrigger: Expand text tracking and zoom massive circle when scrolling down
-    // We wait 200vh for the Falcon Intro to finish before starting this
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        start: () => window.innerHeight * 2,
-        end: () => window.innerHeight * 4,
-        scrub: 1,
-      }
-    });
-
-    tl.to(circleRef.current, {
-      scale: 3, // Zoom in the massive circle even more!
-      ease: "power2.out"
-    }, 0);
-
-    tl.to(nameRef.current, {
-      letterSpacing: "0.25em", // Expand text!
-      opacity: 0, // fade out eventually
-      scale: 0.9,
-      ease: "power2.out"
-    }, 0);
-  });
-
   return (
     <main className="relative storm-bg">
       <FalconIntro />
-      {/* Spacer for Falcon Intro (200vh) + Hero GSAP Animation (200vh) */}
-      <div className="h-[400vh] w-full" />
+      {/* Spacer for Falcon Intro (200vh) */}
+      <div className="h-[200vh] w-full" />
 
       {/* Progress bar */}
       <motion.div
@@ -647,7 +623,7 @@ function Index() {
       </motion.section>
 
       {/* Empty div to capture the scroll progress for hero fade out */}
-      <div ref={heroRef} className="absolute inset-x-0 top-[400vh] h-screen pointer-events-none" />
+      <div ref={heroRef} className="absolute inset-x-0 top-[200vh] h-screen pointer-events-none" />
 
       {/* ═══════════════════════════════════════════════════════ */}
       {/* LAYER 2: CONTENT — naik dari bawah menutupi Hero       */}
