@@ -2,7 +2,7 @@ import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment } from '@react-three/drei';
 import * as THREE from 'three';
-import { useScroll, useSpring, MotionValue } from 'framer-motion';
+import { useScroll, useSpring, useVelocity, MotionValue } from 'framer-motion';
 
 function FalconModel({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
   const { scene } = useGLTF('/falcon.glb');
@@ -51,8 +51,8 @@ function FalconModel({ scrollProgress }: { scrollProgress: MotionValue<number> }
   );
 }
 
-// Hyperspace Stars Effect with InstancedMesh (Stretching Light Streaks)
-function HyperspaceStars({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
+// Hyperspace Stars Effect with InstancedMesh (Stretching Light Streaks tied to Scroll Velocity)
+function HyperspaceStars({ scrollVelocity }: { scrollVelocity: MotionValue<number> }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const count = 1500;
   
@@ -65,8 +65,9 @@ function HyperspaceStars({ scrollProgress }: { scrollProgress: MotionValue<numbe
         x: r * Math.cos(theta),
         y: r * Math.sin(theta),
         z: (Math.random() - 0.5) * 400, // random Z from -200 to 200
-        speed: 1 + Math.random() * 1.5,
-        color: new THREE.Color().setHSL(0.6 + Math.random() * 0.1, 0.9, 0.7 + Math.random() * 0.3)
+        speed: 0.5 + Math.random() * 1.0,
+        // Neon cyan/blue/white colors
+        color: new THREE.Color().setHSL(0.55 + Math.random() * 0.1, 1.0, 0.7 + Math.random() * 0.3)
       };
     });
   }, []);
@@ -79,24 +80,22 @@ function HyperspaceStars({ scrollProgress }: { scrollProgress: MotionValue<numbe
     return array;
   }, [starsData]);
 
-  useFrame(() => {
-    const scroll = scrollProgress.get();
-    const threshold = window.innerHeight * 2;
-    const progress = Math.min(Math.max(scroll / threshold, 0), 1);
+  // To smooth the velocity visually so it doesn't instantly drop to 0
+  const smoothVelocityRef = useRef(0);
+
+  useFrame((state, delta) => {
+    const targetVelocity = Math.abs(scrollVelocity.get());
+    // Lerp the visual velocity for smooth transition between snow and hyperspeed
+    smoothVelocityRef.current = THREE.MathUtils.lerp(smoothVelocityRef.current, targetVelocity, delta * 5);
     
     if (meshRef.current) {
-      // Base speed when idle, huge speed when jumping to lightspeed
-      let speedMulti = 0.5;
-      let stretchZ = 1;
-
-      if (progress > 0.5) {
-         const p = (progress - 0.5) / 0.5;
-         const ease = p * p;
-         speedMulti = 0.5 + ease * 30; // Very fast
-         stretchZ = 1 + ease * 150; // Extremely long streaks
-      }
+      // Base speed is slow (snow-like), adds velocity when scrolling
+      const speedMulti = 0.5 + (smoothVelocityRef.current * 0.02);
+      // Stretch Z based on velocity (1 = no stretch / snow dot)
+      const stretchZ = 1 + (smoothVelocityRef.current * 0.05);
 
       starsData.forEach((star, i) => {
+        // Move towards camera
         star.z += speedMulti * star.speed;
         // Loop stars back when they pass the camera
         if (star.z > 200) {
@@ -115,11 +114,12 @@ function HyperspaceStars({ scrollProgress }: { scrollProgress: MotionValue<numbe
 
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      {/* Thin cylinder makes a perfect light ray */}
-      <cylinderGeometry args={[0.02, 0.02, 1, 4]}>
+      {/* BoxGeometry aligns with Z-axis naturally (unlike Cylinder which is Y-axis) */}
+      <boxGeometry args={[0.03, 0.03, 1]}>
         <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
-      </cylinderGeometry>
-      <meshBasicMaterial vertexColors transparent opacity={0.8} blending={THREE.AdditiveBlending} depthWrite={false} />
+      </boxGeometry>
+      {/* Additive blending makes it look like glowing neon */}
+      <meshBasicMaterial vertexColors transparent opacity={0.9} blending={THREE.AdditiveBlending} depthWrite={false} />
     </instancedMesh>
   );
 }
@@ -135,6 +135,7 @@ export function FalconIntro() {
     damping: 20,
     restDelta: 0.001
   });
+  const scrollVelocity = useVelocity(smoothScroll);
 
   useEffect(() => {
     return smoothScroll.on("change", (latest) => {
@@ -168,7 +169,7 @@ export function FalconIntro() {
           
           <Environment preset="night" />
 
-          <HyperspaceStars scrollProgress={smoothScroll} />
+          <HyperspaceStars scrollVelocity={scrollVelocity} />
           <FalconModel scrollProgress={smoothScroll} />
         </React.Suspense>
       </Canvas>
