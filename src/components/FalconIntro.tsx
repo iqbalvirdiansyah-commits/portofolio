@@ -2,16 +2,15 @@ import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment } from '@react-three/drei';
 import * as THREE from 'three';
+import { useScroll, useSpring, MotionValue } from 'framer-motion';
 
-function FalconModel() {
+function FalconModel({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
   const { scene } = useGLTF('/falcon.glb');
   const group = useRef<THREE.Group>(null);
 
-  // Traverse the scene and adjust materials if necessary
   useMemo(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
-        // Tweak material if too dark or needs env map
         const mat = (child as THREE.Mesh).material as THREE.MeshStandardMaterial;
         if (mat) {
           mat.envMapIntensity = 2.0;
@@ -21,108 +20,107 @@ function FalconModel() {
   }, [scene]);
 
   useFrame(() => {
-    // intro scroll range = window.innerHeight * 2
+    // Read smoothed scroll progress
+    const scroll = scrollProgress.get();
     const threshold = window.innerHeight * 2;
-    const scroll = window.scrollY;
-    // Map scroll 0 -> threshold to progress 0 -> 1
     const progress = Math.min(Math.max(scroll / threshold, 0), 1);
 
     if (group.current) {
-      // 1. Position: From below camera up to center, then zoom past camera
       if (progress < 0.5) {
-        // Phase 1: Enter from below
+        // Phase 1: Enter from below smoothly
         const p = progress / 0.5; // 0 to 1
-        group.current.position.y = THREE.MathUtils.lerp(-10, 0, p);
+        group.current.position.y = THREE.MathUtils.lerp(-15, 0, p);
         group.current.position.z = THREE.MathUtils.lerp(-20, 0, p);
-        // Tilt up to look like it's flying upwards
         group.current.rotation.x = THREE.MathUtils.lerp(Math.PI / 4, 0, p);
       } else {
-        // Phase 2: Enter hyperspace (zoom past camera)
+        // Phase 2: Enter hyperspace
         const p = (progress - 0.5) / 0.5; // 0 to 1
-        // Ease in expo for sudden burst of speed
         const ease = p === 0 ? 0 : Math.pow(2, 10 * p - 10);
         group.current.position.y = 0;
-        // Z moves towards the camera (camera is at z=5)
-        group.current.position.z = THREE.MathUtils.lerp(0, 50, ease);
-        group.current.rotation.x = THREE.MathUtils.lerp(0, -Math.PI / 12, p);
+        group.current.position.z = THREE.MathUtils.lerp(0, 100, ease); // Zoom past camera far
+        group.current.rotation.x = THREE.MathUtils.lerp(0, -Math.PI / 16, p);
       }
     }
   });
 
   return (
     <group ref={group}>
-      {/* 
-        The model might need scaling/rotation adjustments depending on how it was exported.
-        We'll start with scale 0.01 and adjust if it's too big/small.
-      */}
-      <primitive object={scene} scale={0.01} rotation={[0, Math.PI, 0]} />
+      {/* Increased scale from 0.01 to 0.04 for a much more epic presence */}
+      <primitive object={scene} scale={0.04} rotation={[0, Math.PI, 0]} />
     </group>
   );
 }
 
-// Hyperspace Stars Effect
-function HyperspaceStars() {
-  const pointsRef = useRef<THREE.Points>(null);
+// Hyperspace Stars Effect with InstancedMesh (Stretching Light Streaks)
+function HyperspaceStars({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const count = 1500;
   
-  // Generate random stars
-  const { positions, colors } = useMemo(() => {
-    const count = 3000;
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-    const color = new THREE.Color();
-    for (let i = 0; i < count; i++) {
-      // Distribute stars in a tube
-      const r = 5 + Math.random() * 100;
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const starsData = useMemo(() => {
+    return Array.from({ length: count }, () => {
+      const r = 4 + Math.random() * 120; // avoid center
       const theta = Math.random() * 2 * Math.PI;
-      const z = (Math.random() - 0.5) * 200;
-      
-      positions[i * 3] = r * Math.cos(theta);
-      positions[i * 3 + 1] = r * Math.sin(theta);
-      positions[i * 3 + 2] = z;
-
-      // Color: white to blue-ish
-      color.setHSL(0.6 + Math.random() * 0.1, 0.8, Math.random());
-      colors[i * 3] = color.r;
-      colors[i * 3 + 1] = color.g;
-      colors[i * 3 + 2] = color.b;
-    }
-    return { positions, colors };
+      return {
+        x: r * Math.cos(theta),
+        y: r * Math.sin(theta),
+        z: (Math.random() - 0.5) * 400, // random Z from -200 to 200
+        speed: 1 + Math.random() * 1.5,
+        color: new THREE.Color().setHSL(0.6 + Math.random() * 0.1, 0.9, 0.7 + Math.random() * 0.3)
+      };
+    });
   }, []);
 
+  const colorArray = useMemo(() => {
+    const array = new Float32Array(count * 3);
+    starsData.forEach((star, i) => {
+      star.color.toArray(array, i * 3);
+    });
+    return array;
+  }, [starsData]);
+
   useFrame(() => {
+    const scroll = scrollProgress.get();
     const threshold = window.innerHeight * 2;
-    const scroll = window.scrollY;
     const progress = Math.min(Math.max(scroll / threshold, 0), 1);
     
-    if (pointsRef.current) {
-      // Move stars towards camera continuously
-      const speed = 0.5 + progress * 8; // Speed increases as scroll progresses
-      pointsRef.current.position.z += speed;
-      // Loop stars back
-      if (pointsRef.current.position.z > 100) {
-        pointsRef.current.position.z -= 100;
-      }
-      
-      // As progress > 0.5, stretch the stars into lines (using scale Z)
+    if (meshRef.current) {
+      // Base speed when idle, huge speed when jumping to lightspeed
+      let speedMulti = 0.5;
+      let stretchZ = 1;
+
       if (progress > 0.5) {
          const p = (progress - 0.5) / 0.5;
-         const stretch = 1 + p * 30; // Stretch Z up to 30x
-         pointsRef.current.scale.z = stretch;
-      } else {
-         pointsRef.current.scale.z = 1;
+         const ease = p * p;
+         speedMulti = 0.5 + ease * 30; // Very fast
+         stretchZ = 1 + ease * 150; // Extremely long streaks
       }
+
+      starsData.forEach((star, i) => {
+        star.z += speedMulti * star.speed;
+        // Loop stars back when they pass the camera
+        if (star.z > 200) {
+           star.z -= 400;
+        }
+        
+        dummy.position.set(star.x, star.y, star.z);
+        // Stretch along Z axis
+        dummy.scale.set(1, 1, stretchZ);
+        dummy.updateMatrix();
+        meshRef.current!.setMatrixAt(i, dummy.matrix);
+      });
+      meshRef.current.instanceMatrix.needsUpdate = true;
     }
   });
 
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" count={positions.length / 3} array={positions} itemSize={3} />
-        <bufferAttribute attach="attributes-color" count={colors.length / 3} array={colors} itemSize={3} />
-      </bufferGeometry>
-      {/* Additive blending makes stars glow when overlapping */}
-      <pointsMaterial size={0.3} vertexColors transparent blending={THREE.AdditiveBlending} />
-    </points>
+    <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
+      {/* Thin cylinder makes a perfect light ray */}
+      <cylinderGeometry args={[0.02, 0.02, 1, 4]}>
+        <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
+      </cylinderGeometry>
+      <meshBasicMaterial vertexColors transparent opacity={0.8} blending={THREE.AdditiveBlending} depthWrite={false} />
+    </instancedMesh>
   );
 }
 
@@ -130,47 +128,48 @@ export function FalconIntro() {
   const [opacity, setOpacity] = useState(1);
   const [visible, setVisible] = useState(true);
 
+  // Framer Motion smooth scroll
+  const { scrollY } = useScroll();
+  const smoothScroll = useSpring(scrollY, {
+    stiffness: 100,
+    damping: 20,
+    restDelta: 0.001
+  });
+
   useEffect(() => {
-    const handleScroll = () => {
-      const scroll = window.scrollY;
+    return smoothScroll.on("change", (latest) => {
       const threshold = window.innerHeight * 2;
-      // Start fading out the 3D canvas at 90% of threshold, fully hidden by threshold
       const fadeStart = threshold * 0.9;
-      if (scroll > fadeStart) {
-        const p = (scroll - fadeStart) / (threshold * 0.1);
+      
+      if (latest > fadeStart) {
+        const p = (latest - fadeStart) / (threshold * 0.1);
         setOpacity(Math.max(1 - p, 0));
-        if (p >= 1) setVisible(false);
+        if (p >= 1.2) setVisible(false);
         else setVisible(true);
       } else {
         setOpacity(1);
         setVisible(true);
       }
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    });
+  }, [smoothScroll]);
 
   if (!visible) return null;
 
   return (
     <div 
-      className="fixed inset-0 z-50 pointer-events-none bg-black transition-opacity duration-100"
+      className="fixed inset-0 z-50 pointer-events-none bg-black"
       style={{ opacity }}
     >
       <Canvas camera={{ position: [0, 0, 10], fov: 60 }} gl={{ antialias: true }}>
         <React.Suspense fallback={null}>
-          {/* Basic lighting */}
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={2} color="#ffffff" />
           <directionalLight position={[-10, -10, -5]} intensity={1} color="#4488ff" />
           
-          {/* Environment map for reflections on the metal ship */}
           <Environment preset="night" />
 
-          {/* 3D Elements */}
-          <HyperspaceStars />
-          <FalconModel />
+          <HyperspaceStars scrollProgress={smoothScroll} />
+          <FalconModel scrollProgress={smoothScroll} />
         </React.Suspense>
       </Canvas>
     </div>
