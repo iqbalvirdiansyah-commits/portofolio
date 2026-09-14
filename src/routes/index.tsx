@@ -244,7 +244,7 @@ function ProjectCarousel() {
       </div>
 
       {/* Content wrapper */}
-      <div className="relative flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+      <div className="relative flex flex-col md:flex-row items-start gap-12 lg:gap-20">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentIndex}
@@ -253,7 +253,7 @@ function ProjectCarousel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: direction * -50 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col md:flex-row items-center w-full"
+            className="flex flex-col md:flex-row items-start w-full"
           >
             {/* Left Side: Monitor & Controls */}
             <div className="w-full md:w-3/5 flex flex-col items-center">
@@ -315,7 +315,7 @@ function ProjectCarousel() {
             </div>
 
             {/* Right Side: Info */}
-            <div className="w-full md:w-2/5 mt-12 md:mt-0 px-4 md:px-0 md:pl-12 flex flex-col justify-center">
+            <div className="w-full md:w-2/5 mt-8 md:mt-0 px-4 md:px-0 md:pl-12 flex flex-col justify-start md:pt-4">
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3">
                 {p.role} &middot; {p.year}
               </p>
@@ -570,18 +570,18 @@ function Index() {
                  </div>
                  
                  {/* Quote Text */}
-                 <div className="flex flex-col justify-center pt-2 md:pt-4">
+                 <div className="flex flex-col justify-center pt-1 md:pt-4">
                     <div className="flex items-start gap-1 md:gap-2">
-                       <span className="text-4xl md:text-6xl font-serif leading-none text-white/50 translate-y-1">"</span>
-                       <h2 className="text-base md:text-2xl lg:text-3xl font-black uppercase leading-tight tracking-tight">
+                       <span className="text-4xl md:text-6xl font-serif leading-none text-white/50 translate-y-0.5 md:translate-y-1">"</span>
+                       <h2 className="text-[13px] sm:text-base md:text-2xl lg:text-3xl font-black uppercase leading-tight tracking-tight">
                          DO OR DO NOT,<br/>THERE IS NO TRY.
                        </h2>
                     </div>
-                    <p className="mt-1 md:mt-2 text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-white/60 pl-6 md:pl-10">- Master Yoda</p>
+                    <p className="mt-1 md:mt-2 text-[9px] md:text-xs font-mono uppercase tracking-[0.25em] text-white/60 pl-4 sm:pl-6 md:pl-10">- Master Yoda</p>
                     
-                    <div className="mt-6 md:mt-8 pl-6 md:pl-10 pointer-events-auto">
+                    <div className="mt-5 md:mt-8 pl-4 sm:pl-6 md:pl-10 pointer-events-auto">
                        <Magnetic>
-                         <a href="#work" className="rounded-full border border-white/50 px-6 py-3 text-xs md:text-sm font-bold text-white hover:border-white hover:bg-white hover:text-black transition-all inline-block">
+                         <a href="#work" className="rounded-full border border-white/50 px-4 md:px-6 py-2 md:py-3 text-[10px] md:text-sm font-bold text-white hover:border-white hover:bg-white hover:text-black transition-all inline-block">
                            Explore Work
                          </a>
                        </Magnetic>
@@ -634,7 +634,7 @@ function Index() {
         <div className="absolute bottom-6 md:bottom-10 left-0 w-full z-20 flex justify-center pointer-events-none overflow-hidden px-4">
            <h1 
              ref={nameRef}
-             className="text-[12vw] sm:text-[9vw] md:text-[7vw] lg:text-[6.5vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap origin-bottom"
+             className="text-[9vw] sm:text-[8vw] md:text-[6.5vw] lg:text-[6vw] font-black tracking-tighter uppercase leading-[0.8] select-none text-primary whitespace-nowrap origin-bottom"
            >
              IQBAL VIRDIANSYAH
            </h1>
