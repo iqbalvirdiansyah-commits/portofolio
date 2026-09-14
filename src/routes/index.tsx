@@ -603,8 +603,11 @@ function Index() {
            </div>
         </div>
 
-        {/* Floating Socials (Vertically centered) */}
-        <div className="absolute right-4 md:right-6 top-[40%] -translate-y-1/2 z-30 flex flex-col gap-4 pointer-events-none mix-blend-difference text-white items-center">
+        {/* Floating Socials (Vertically centered, snapped to circle edge) */}
+        <div 
+          className="absolute top-1/2 -translate-y-1/2 z-30 flex flex-col gap-4 pointer-events-none mix-blend-difference text-white items-center"
+          style={{ left: 'min(calc(50% + 65vh + 1rem), calc(100vw - 3.5rem))' }}
+        >
            {[
              { icon: Github, href: "https://github.com", label: "GitHub" },
              { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
@@ -618,10 +621,10 @@ function Index() {
            ))}
         </div>
 
-        {/* Floating Resume Button (Vertically centered) */}
+        {/* Floating Resume Button (Right edge) */}
         <button 
           onClick={() => setIsResumeOpen(true)}
-          className="absolute right-0 top-[60%] -translate-y-1/2 z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center gap-2 bg-primary text-black pl-3 pr-1 py-4 rounded-l-xl hover:pr-4 hover:bg-primary/90 transition-all duration-300 shadow-[-10px_0_30px_rgba(200,255,0,0.2)] pointer-events-auto group cursor-pointer"
         >
            <Menu className="w-5 h-5 group-hover:scale-110 transition-transform" />
            <span className="text-xs font-bold uppercase tracking-[0.2em] select-none" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>RESUME</span>
