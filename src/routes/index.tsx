@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import GradientText from "../components/GradientText";
 import LightRays from "../components/LightRays";
-import { FalconIntro } from "../components/FalconIntro";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -457,10 +456,6 @@ function Index() {
 
   return (
     <main className="relative storm-bg">
-      <FalconIntro />
-      {/* Spacer for Falcon Intro (200vh) */}
-      <div className="h-[200vh] w-full" />
-
       {/* Progress bar */}
       <motion.div
         style={{ scaleX: progress }}
@@ -621,7 +616,7 @@ function Index() {
       </motion.section>
 
       {/* Empty div to capture the scroll progress for hero fade out */}
-      <div ref={heroRef} className="absolute inset-x-0 top-[200vh] h-screen pointer-events-none" />
+      <div ref={heroRef} className="absolute inset-x-0 top-0 h-screen pointer-events-none" />
 
       {/* ═══════════════════════════════════════════════════════ */}
       {/* LAYER 2: CONTENT — naik dari bawah menutupi Hero       */}
